@@ -1,0 +1,19 @@
+.main-page{
+    height: 100vh;
+    background-color: #11377e;
+    box-shadow: 0 0 200px 10px rgba(0,0,0, 0.9) inset;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;                           
+    justify-content: center;
+}
+.button{
+    height: min-content;
+}
+.line{
+    height: 2px;
+    width: 100%;
+    background-image: radial-gradient(circle, rgba(2,0,36,2) 0%, rgba(9,9,121,1) 15%, rgba(0,212,255,0) 77%);
+    opacity: 0.4;
+}
