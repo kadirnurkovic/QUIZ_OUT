@@ -21,7 +21,7 @@ function QuestionPage() {
             {questions?.map((el) => (
                 <div>
                     <h1>{el.question}</h1>
-                <div><h3>{el.incorrectAnswers}   {el.correctAnswer}</h3></div>
+                <div><h3>{el.incorrectAnswers} {el.correctAnswer}</h3></div>
                 </div>
             ))}
         </div>
