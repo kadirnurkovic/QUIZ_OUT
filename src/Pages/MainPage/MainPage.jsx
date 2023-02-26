@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@mantine/core";
-import './MainPage.css'
+import './MainPage.css';
+import MultiSelect from './Categories'
 
 function MainPage() {
   return (
@@ -14,9 +15,9 @@ function MainPage() {
           Start button
         </Button>
       </div>
-      <div  className="line">
-           
+      <div  className="line">  
       </div>
+      <MultiSelect/>
     </div>
   );
 }
