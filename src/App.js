@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       {/* <MainPage /> */}
-      <QuestionPage/>
+      <MainPage/>
     </div>
   );
 }
