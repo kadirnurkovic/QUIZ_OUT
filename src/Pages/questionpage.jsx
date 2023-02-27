@@ -7,21 +7,26 @@ function QuestionPage() {
     const getApi = () => {
         axios.get('https://the-trivia-api.com/api/questions')
         .then((response) => {
-            setQuestions(response.data)
+            setQuestions(response.data.slice(0,1))
         })
     }
     useEffect(() => {
         getApi()
     },[])
 
-    console.log(questions)
+    const shuffledAnswers = questions.map((element) => {
+        return {
+            answer: element.incorrectAnswers[0],
+            correct: false
+        }
+    })
+    console.log(shuffledAnswers)
     
     return (
         <div>
-            {questions?.map((el) => (
+            {questions.map((el) => (
                 <div>
                     <h1>{el.question}</h1>
-                <div><h3>{el.incorrectAnswers} {el.correctAnswer}</h3></div>
                 </div>
             ))}
         </div>

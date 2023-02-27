@@ -1,5 +1,5 @@
 import { MultiSelect } from '@mantine/core';
-import '/Categories.css';
+import './Categories.css';
 
 const data = [
   { value: 'react', label: 'React' },
