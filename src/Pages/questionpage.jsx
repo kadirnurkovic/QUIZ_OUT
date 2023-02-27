@@ -1,56 +1,36 @@
 import React from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function QuestionPage() {
-<<<<<<< HEAD
-    const [questions, setQuestions] = useState([])
-    const getApi = () => {
-        axios.get('https://the-trivia-api.com/api/questions')
-        .then((response) => {
-            setQuestions(response.data.slice(0,1))
-        })
-    }
-    useEffect(() => {
-        getApi()
-    },[])
-
-    const shuffledAnswers = questions.map((element) => {
-        return {
-            answer: element.incorrectAnswers[0],
-            correct: false
-        }
-    })
-    console.log(shuffledAnswers)
-    
-    return (
-        <div>
-            {questions.map((el) => (
-                <div>
-                    <h1>{el.question}</h1>
-                </div>
-=======
   const [questions, setQuestions] = useState([]);
-  const [answers, setAnswers] = useState([]);
+  const sliceFirst = React.useRef(0)
+  const sliceSecond = React.useRef(1)
   const getApi = () => {
-    axios.get("https://the-trivia-api.com/api/questions").then((response) => {
-      setQuestions(response.data.slice(0,1));
+    axios.get("https://the-trivia-api.com/api/questions?limit=10").then((response) => {
+      setQuestions(response.data);
     });
   };
+
+  console.log(questions)
   
   useEffect(() => {
     getApi();
   }, []);
+  const onClickHandler = () => {
+    sliceFirst.current = sliceSecond.current
+    sliceSecond.current = sliceSecond.current+1
+    console.log(sliceFirst, sliceSecond)
+  }
 
   return (
     <div>
-      {questions?.map((el) => (
+      {questions?.slice(sliceFirst.current, sliceSecond.current).map((el) => (
         <div key={el.id}>
           <h1>{el.question}</h1>
           <div>
             <div>{el.incorrectAnswers.concat(el.correctAnswer).sort((a,b)=> Math.round(0 - Math.random())).map((element, id) => (
-              <div key={id} style={{color: element === el.correctAnswer ? "red" : "black"}}>{element}</div>
->>>>>>> 84aaef087e30a8913df3c4107f81ad4afaf022ca
+              <button onClick={() => {onClickHandler()}} key={id} style={{color: element === el.correctAnswer ? "red" : "black"}}>{element}</button>
             ))}
 </div>
           </div>
