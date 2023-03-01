@@ -1,23 +1,16 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom'
 
 function QuestionPage() {
-  const [questions, setQuestions] = useState([]);
-  const [answers, setAnswers] = useState([]);
-  const getApi = () => {
-    axios.get("https://the-trivia-api.com/api/questions").then((response) => {
-      setQuestions(response.data);
-    });
-  };
-
-  useEffect(() => {
-    getApi();
-  }, []);
+  
+  const { state } = useLocation();
+  console.log(state)
 
   return (
     <div>
-      {questions?.slice(0, 1).map((el) => (
+      {state.quest?.slice(0, 1).map((el) => (
         <div key={el.id}>
           <h1>{el.question}</h1>
           <div>
@@ -35,8 +28,7 @@ function QuestionPage() {
                     {element}
                   </div>
                 ))}
-            </div>{" "}
-            <button onClick={() => {}}> Next </button>
+            </div>
           </div>
         </div>
       ))}

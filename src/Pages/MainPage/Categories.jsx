@@ -22,12 +22,12 @@ function Categories() {
     <MultiSelect
       data={data}
       label="Choose the categories"
-      placeholder="Categories"
+      placeholder="Time"
     />
     <MultiSelect
       data={data}
       label="Choose the categories"
-      placeholder="Categories"
+      placeholder="Difficulty"
     />
     </div>
   );
