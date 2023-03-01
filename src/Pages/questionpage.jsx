@@ -6,7 +6,6 @@ import { useLocation } from 'react-router-dom'
 function QuestionPage() {
   
   const { state } = useLocation();
-  console.log(state)
 
   return (
     <div>
@@ -25,6 +24,7 @@ function QuestionPage() {
                       color: element === el.correctAnswer ? "red" : "black",
                     }}
                   >
+                    {console.log(el)}
                     {element}
                   </div>
                 ))}
