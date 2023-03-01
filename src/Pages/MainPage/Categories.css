@@ -3,3 +3,12 @@
     gap: 10px;
 
 }
+.mantine-MultiSelect-value{
+    color: green;
+    background-color: orange;
+}
+.mantine-MultiSelect-input{
+    background-color: #364d77;
+    border: none;
+    box-shadow: 0 0 5px black inset ;
+}
