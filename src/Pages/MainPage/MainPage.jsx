@@ -10,12 +10,15 @@ function MainPage() {
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const getApi = () => {
-    axios.get("https://the-trivia-api.com/api/questions").then((response) => {
+    axios.get("https://the-trivia-api.com/api/questions?limit=5").then((response) => {
       setQuestions(response.data);
     });
   };
   console.log(questions)
 
+  useEffect(() => {
+    getApi()
+  },[])
 
   return (
     <div className="main-page">
@@ -30,7 +33,6 @@ function MainPage() {
           variant="gradient"
           gradient={{ from: "orange", to: "red" }}
           size="xl"
-          onClick={()=> {getApi()}}
         >
           Start button
         </Button>

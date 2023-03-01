@@ -5,18 +5,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainPage from "./Pages/MainPage/MainPage";
-import QuestionPage from "./Pages/questionpage";
+import QuestionPage from "./Pages/QuestionPage/questionpage";
+import SummaryPage from "./Pages/SummaryPage/summarypage"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
     <Router>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/quiz" element={<QuestionPage />} />
+        <Route path="/summary" element={<SummaryPage />} />
       </Routes>
     </Router>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
