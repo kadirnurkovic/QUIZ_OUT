@@ -40,6 +40,19 @@
     border-radius: 10px;
 }
 
+.active{
+    margin: 10px;
+    background-color: #c17a37;
+    border: none;
+    box-shadow: 0 0 5px black inset ;
+    height: 120px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
 .answers-container {
     width: 50%;
     height: 300px;
