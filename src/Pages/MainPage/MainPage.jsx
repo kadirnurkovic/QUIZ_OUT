@@ -10,7 +10,7 @@ function MainPage() {
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const getApi = () => {
-    axios.get("https://the-trivia-api.com/api/questions?limit=5").then((response) => {
+    axios.get("https://the-trivia-api.com/api/questions?limit=5&difficulty=hard").then((response) => {
       setQuestions(response.data);
     });
   };

@@ -38,9 +38,6 @@ function QuestionPage() {
                   <div
                     className="four-answers"
                     key={id}
-                    style={{
-                      color: element === el.correctAnswer ? "red" : "black",
-                    }}
                     onClick={() => onClickHandler()}
                   >
                     {element}
