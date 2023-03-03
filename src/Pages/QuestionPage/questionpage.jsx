@@ -9,7 +9,11 @@ function QuestionPage() {
   const [questionCounter, setQuestionCounter] = useState(1);
   const [nextQuestion, setNextQuestion] = useState(0);
   const [activeClass, setActiveClass] = useState(false);
-  
+  const [color, setColor] = useState({
+    border: 'orange 1px solid',
+    backgroundColor: 'orange'
+  });
+
   const navigate = useNavigate();
 
   const handleNextQuestion = () => {
@@ -23,7 +27,9 @@ function QuestionPage() {
   }
 
   const { state } = useLocation();
-  console.log(state.quest);
+
+  const answers = state.quest[nextQuestion].incorrectAnswers.concat(state.quest[nextQuestion].correctAnswer);
+  console.log(answers);
 
   const toggleClassHandler = () => {
     if(activeClass){
@@ -47,26 +53,26 @@ function QuestionPage() {
           <div className="line"></div>
             <div className="answers-container">
               {state.quest.map((el) => (
-                <div key={el.id}>{el === state.quest[nextQuestion] ? (el.incorrectAnswers.concat(el.correctAnswer)
+                <div key={el.id} className="options">{el === state.quest[nextQuestion] && (answers
                   .sort(() => Math.round(0 - Math.random()))
                   .map((element, id) => (
                     <div
                       key={id}
-                      className={toggleClassHandler()}
-                      style={{
-                        color: element === el.correctAnswer ? "red" : "black",
-                      }}
+                      className={activeClass ? 'active' : 'four-answers'}
+                      style={element === el.correctAnswer ? color : {backgroundColor: 'orange' , border: 'orange 1px solid'}}
                       onClick={() => {
                         handleNextQuestion()
-                        if(el.correctAnswer === element){
-                        handleActiveClass(id)
+                        if(element === el.correctAnswer){
+                          setColor({backgroundColor: 'green'})
+                        }else{
+                          setColor({backgroundColor: 'red'})
                         }
                       }}
                     >
-                      {console.log(el)}
+                      {}
                       {element}
                     </div>
-              ))) : ''}</div>))}
+              )))}</div>))}
                 
           </div>
         </div>
