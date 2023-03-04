@@ -1,31 +1,38 @@
 import React from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./questionpage.css"
 import { useLocation, useNavigate } from 'react-router-dom'
+import { ApiContext } from "../../context/context"
 
 function QuestionPage() {
-  const [sliceFirst, setSliceFirst] = useState(0)
-  const [sliceSecond, setSliceSecond] = useState(1)
+
+  const [sliceFirst, setSliceFirst] = useState(1)
+  const [sliceSecond, setSliceSecond] = useState(2)
   const [questionCounter, setQuestionCounter] = useState(1)
-
-  const navigate = useNavigate()
-
-  const { state } = useLocation();
-  console.log(state.quest)
+  const [testState, setTestState] = useState(JSON.parse(localStorage.getItem("data")))
+  const {data} = useContext(ApiContext);
+  const navigate = useNavigate();
 
   const onClickHandler = () => {
     setSliceFirst(sliceFirst+1)
     setSliceSecond(sliceSecond+1)
+    localStorage.setItem("sliceOne", JSON.stringify(sliceFirst))
+    localStorage.setItem("sliceTwo", JSON.stringify(sliceSecond))
     setQuestionCounter(questionCounter+1)
-    if (questionCounter >= state.quest.length) {
+    if (questionCounter >= testState.length) {
       navigate("/summary")
     }
   }
 
+  useEffect(() => {
+    localStorage.setItem("sliceOne", JSON.stringify(0))
+    localStorage.setItem("sliceTwo", JSON.stringify(1))
+  },[])
+
   return (
     <div className="main-div">
-      {state.quest?.slice(sliceFirst, sliceSecond).map((el) => (
+      {testState.slice(JSON.parse(localStorage.getItem("sliceOne")), JSON.parse(localStorage.getItem("sliceTwo"))).map((el) => (
         <div key={el.id}
         className="container-container">
           <h1 className="question-div">{el.question}</h1>
