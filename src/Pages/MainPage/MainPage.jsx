@@ -7,8 +7,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { data, diffData, numberOfQuestions } from './Data';
 
-function MainPage() {
-
+const MainPage = () => {
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [category, setCategory] = useState("");
@@ -22,6 +21,8 @@ function MainPage() {
 
   useEffect(() => {
     getApi();
+    localStorage.setItem('slice', 0);
+    localStorage.setItem('incrementer', 1);
   }, [category, difficulty, limit]);
 
   return (
