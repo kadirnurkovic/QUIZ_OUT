@@ -49,6 +49,19 @@
     transform: scale(1.03);
 }
 
+.active{
+    margin: 10px;
+    background-color: #c17a37;
+    border: none;
+    box-shadow: 0 0 5px black inset ;
+    height: 120px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
 .answers-container {
     width: 600px;
     height: 200px;
@@ -57,5 +70,10 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+}
+.options{
+    display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
 }

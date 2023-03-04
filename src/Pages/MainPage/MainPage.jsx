@@ -1,47 +1,69 @@
 import React from "react";
 import { Button } from "@mantine/core";
-import './MainPage.css';
-import MultiSelect from './Categories'
-import { useNavigate } from 'react-router-dom'
+import "./MainPage.css";
+import { Select } from '@mantine/core'
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState, useEffect } from 'react'
-import { useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { ApiContext } from "../../context/context";
+import { data, diffData, numberOfQuestions } from './Data';
 
-function MainPage() {
-  const {data, setData} = useContext(ApiContext)
+const MainPage = () => {
   const navigate = useNavigate();
+  const [questions, setQuestions] = useState([]);
+  const [category, setCategory] = useState("");
+  const [difficulty, setDifficulty] = useState("medium");
+  const [limit, setLimit] = useState('10');
   const getApi = () => {
-    axios.get("https://the-trivia-api.com/api/questions?limit=5&difficulty=hard").then((response) => {
-      localStorage.setItem("data", JSON.stringify(response.data)
-      );
-    })
+    axios.get(`https://the-trivia-api.com/api/questions?categories=${category}&difficulty=${difficulty}&limit=${limit}`).then((response) => {
+      setQuestions(response.data);
+      localStorage.setItem('data', JSON.stringify(response.data))
+    });
   };
 
   useEffect(() => {
-    getApi()
-  },[data])
-
-  const onClickNavigate = () => {
-    navigate('/quiz')
-  }
+    getApi();
+    localStorage.setItem('slice', 0);
+    localStorage.setItem('incrementer', 1);
+  }, [category, difficulty, limit]);
 
   return (
     <div className="main-page">
-      <div className="button" onClick={() => {
-        onClickNavigate()
-      }}>
+      <div className="button">
         <Button
           variant="gradient"
           gradient={{ from: "orange", to: "red" }}
           size="xl"
+          onClick={() => {
+            navigate(`/quiz`, {
+              state: {
+                quest: questions,
+              },
+            });
+          }}
         >
           Start button
         </Button>
       </div>
-      <div  className="line">  
+      <div className="line"></div>
+      <div className="option-section">
+        <Select
+          data={data}
+          label="Choose the categories"
+          placeholder="Categories"
+          value={category}
+          onChange={setCategory}
+        />
+        <Select data={diffData} label="Choose the difficulty" placeholder="Difficulty" value={difficulty}
+        onChange={setDifficulty}/>
+        <Select
+          data={numberOfQuestions}
+          label="Choose the number of questions"
+          placeholder="Difficulty"
+          onChange={setLimit}
+          value={limit}
+        />
       </div>
-      <MultiSelect/>
     </div>
   );
 }
