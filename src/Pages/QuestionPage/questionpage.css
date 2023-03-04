@@ -11,6 +11,8 @@
 
 .question-div {
     color: white;
+    padding-left: 80px;
+    padding-right: 80px;
 }
 
 .container-container {
@@ -32,12 +34,19 @@
     background-color: #1f3359;
     border: none;
     box-shadow: 0 0 5px black inset ;
-    height: 120px;
-    width: 200px;
+    height: 70px;
+    width: 280px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.four-answers:hover {
+    box-shadow: 0 0 10px 3px rgb(255, 142, 49);
+    transform: scale(1.03);
 }
 
 .active{
@@ -54,8 +63,8 @@
 }
 
 .answers-container {
-    width: 50%;
-    height: 300px;
+    width: 600px;
+    height: 200px;
     padding-top: 20px;
     display: flex;
     flex-direction: row;

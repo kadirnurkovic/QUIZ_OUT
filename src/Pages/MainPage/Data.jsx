@@ -1,6 +1,5 @@
-import { Select } from "@mantine/core";
-import "./Data.css";
 
+import './Data.css'
 export const data = [
   { value: "history", label: "History" },
   { value: "geography", label: "Geography" },

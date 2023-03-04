@@ -4,7 +4,8 @@ import "./MainPage.css";
 import { Select } from '@mantine/core'
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ApiContext } from "../../context/context";
 import { data, diffData, numberOfQuestions } from './Data';
 
 const MainPage = () => {
@@ -16,6 +17,7 @@ const MainPage = () => {
   const getApi = () => {
     axios.get(`https://the-trivia-api.com/api/questions?categories=${category}&difficulty=${difficulty}&limit=${limit}`).then((response) => {
       setQuestions(response.data);
+      localStorage.setItem('data', JSON.stringify(response.data))
     });
   };
 
