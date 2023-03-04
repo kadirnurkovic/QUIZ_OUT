@@ -7,15 +7,18 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainPage from "./Pages/MainPage/MainPage";
 import QuestionPage from "./Pages/QuestionPage/questionpage";
 import SummaryPage from "./Pages/SummaryPage/summarypage"
+import { ApiContextProvider } from"./context/context"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <Router>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/quiz" element={<QuestionPage />} />
-        <Route path="/summary" element={<SummaryPage />} />
-      </Routes>
+      <ApiContextProvider>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/quiz" element={<QuestionPage />} />
+          <Route path="/summary" element={<SummaryPage />} />
+        </Routes>
+      </ApiContextProvider>
     </Router>
 );
 
