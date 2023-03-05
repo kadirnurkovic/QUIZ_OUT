@@ -14,6 +14,7 @@ const MainPage = () => {
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("medium");
   const [limit, setLimit] = useState('10');
+  
   const getApi = () => {
     axios.get(`https://the-trivia-api.com/api/questions?categories=${category}&difficulty=${difficulty}&limit=${limit}`).then((response) => {
       setQuestions(response.data);
@@ -35,11 +36,7 @@ const MainPage = () => {
           gradient={{ from: "orange", to: "red" }}
           size="xl"
           onClick={() => {
-            navigate(`/quiz`, {
-              state: {
-                quest: questions,
-              },
-            });
+            navigate(`/quiz`);
           }}
         >
           Start button

@@ -47,6 +47,7 @@
 .four-answers:hover {
     box-shadow: 0 0 10px 3px rgb(255, 142, 49);
     transform: scale(1.03);
+    transition: 0.19s;
 }
 
 .active{
