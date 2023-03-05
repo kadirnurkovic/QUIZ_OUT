@@ -9,13 +9,8 @@ function QuestionPage() {
 
   const [newData, setNewData] = useState(JSON.parse(localStorage.getItem('data')));
   const [questionCounter, setQuestionCounter] = useState(+(localStorage.getItem('incrementer')));
-  const [currentQuestion, setCurrentQuestion] = useState(localStorage.getItem('slice') ? +(localStorage.getItem('slice')) : 0);
-  const [activeClass, setActiveClass] = useState(false);
-  const [storage, setStorage] = useState()
-  const [color, setColor] = useState({
-    border: 'orange 1px solid',
-    backgroundColor: 'orange'
-  });
+  const [currentQuestion, setCurrentQuestion] = useState(+(localStorage.getItem('slice')));
+  const [isActive, setIsActive] = useState(false)
 
   const navigate = useNavigate();
 
@@ -23,20 +18,23 @@ function QuestionPage() {
     const nextQuestionIncrementer = currentQuestion + 1;
     setCurrentQuestion(nextQuestionIncrementer);
     setQuestionCounter(questionCounter+1);
-    
-    if (+(localStorage.getItem('incrementer')) > newData.length) {
+    if (+(localStorage.getItem('incrementer')) >= newData.length) {
       navigate("/summary")
     }
-
   }
+
+  localStorage.setItem('slice', currentQuestion)
+  localStorage.setItem('incrementer', questionCounter)
+
   
 
-  const answers = newData[localStorage.getItem('slice')].incorrectAnswers.concat(newData[localStorage.getItem('slice')].correctAnswer).sort((a,b)=> 0.5 - Math.random());
-  console.log(answers);
+  const answers = newData[localStorage.getItem('slice')].incorrectAnswers.concat(newData[localStorage.getItem('slice')].correctAnswer)
+  
 
 
   return (
     <div className="main-div">
+      
         <div
         className="container-container">
           <h1 className="question-div">{newData[localStorage.getItem('slice')].question}</h1>
@@ -47,20 +45,19 @@ function QuestionPage() {
                   .map((element, id) => (
                     <div
                       key={id}
-                      className='four-answers'
-                      
+                      className={isActive ? "four-answersCorrect" : "four-answers"}
+                      style={element === el.correctAnswer && isActive ? {boxShadow: "0 0 10px 3px rgb(21, 255, 0)"} : {boxShadow: "red"} }
                       onClick={() => {
-                        localStorage.setItem('incrementer', questionCounter)
-                        localStorage.setItem('slice', currentQuestion)
-                        handleNextQuestion()
-                        
+                        setIsActive(true);
+                        setTimeout(() => {
+                          handleNextQuestion()
+                          setIsActive(false);
+                        },1000)
                       }}
                     >
-                      {console.log(localStorage.getItem('slice') + currentQuestion, Number(localStorage.getItem('slice')) + currentQuestion)}
-                      {console.log(Number(localStorage.getItem('slice')), currentQuestion)}
                       {element}
                     </div>
-              )))}</div>))}
+              )).sort((a,b)=> 0.5 - Math.random()))}</div>))}
                 
           </div>
         </div>
