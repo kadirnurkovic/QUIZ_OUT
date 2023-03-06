@@ -10,22 +10,24 @@ import { data, diffData, numberOfQuestions } from './Data';
 
 const MainPage = () => {
   const navigate = useNavigate();
-  const [questions, setQuestions] = useState([]);
+  const {setData} = useContext(ApiContext)
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("medium");
   const [limit, setLimit] = useState('10');
   const getApi = () => {
     axios.get(`https://the-trivia-api.com/api/questions?categories=${category}&difficulty=${difficulty}&limit=${limit}`).then((response) => {
-      setQuestions(response.data);
-      localStorage.setItem('data', JSON.stringify(response.data))
+      setData(response.data);
+      localStorage.setItem('data', JSON.stringify(response.data));
     });
   };
+  
 
   useEffect(() => {
     getApi();
     localStorage.setItem('slice', 0);
     localStorage.setItem('incrementer', 1);
   }, [category, difficulty, limit]);
+  
 
   return (
     <div className="main-page">
@@ -35,11 +37,7 @@ const MainPage = () => {
           gradient={{ from: "orange", to: "red" }}
           size="xl"
           onClick={() => {
-            navigate(`/quiz`, {
-              state: {
-                quest: questions,
-              },
-            });
+            navigate(`/quiz`);
           }}
         >
           Start button

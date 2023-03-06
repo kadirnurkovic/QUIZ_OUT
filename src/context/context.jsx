@@ -5,10 +5,17 @@ const ApiContext = createContext();
 const ApiContextProvider = ({children}) => {
     const navigate = useNavigate()
     const [data, setData] = useState([]);
- 
+    
+    const sorted = data.map((el) => {
+        let newSort = []
+        newSort = el.incorrectAnswers.concat(el.correctAnswer).sort((a,b) => 0.5 - Math.random())
+        return newSort
+    })    
+
     const values = {
         data,
-        setData
+        setData,
+        sorted
     }
 
     return (
