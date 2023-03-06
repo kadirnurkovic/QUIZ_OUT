@@ -1,11 +1,15 @@
 import React from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./questionpage.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import MainPage from "../MainPage/MainPage";
+import { ApiContext } from '../../context/context';
+import {answerStorage} from '../../Storage/Storage'
 
-function QuestionPage() {
+const QuestionPage = () => {
+  const { shuffled } = useContext(ApiContext);
+  const [shuffleSorted ,setShuffleSorted] = useState(shuffled)
   const [newData, setNewData] = useState(
     JSON.parse(localStorage.getItem("data"))
   );
@@ -15,32 +19,32 @@ function QuestionPage() {
   const [currentQuestion, setCurrentQuestion] = useState(
     +localStorage.getItem("slice")
   );
-  const [color, setColor] = useState({
-    border: "orange 1px solid",
-    backgroundColor: "orange",
-  });
-
+  const [isActive, setIsActive] = useState(false);
   const navigate = useNavigate();
-
   const handleNextQuestion = () => {
     const nextQuestionIncrementer = currentQuestion + 1;
     setCurrentQuestion(nextQuestionIncrementer);
     setQuestionCounter(questionCounter + 1);
-
+    setIsActive(true)
     if (+localStorage.getItem("incrementer") >= newData.length) {
       navigate("/summary");
+      setQuestionCounter(questionCounter + 1);
     }
   };
   localStorage.setItem("slice", currentQuestion);
   localStorage.setItem("incrementer", questionCounter);
 
-  const answers = newData[+(localStorage.getItem("slice"))].incorrectAnswers
-    .concat(newData[+(localStorage.getItem("slice"))].correctAnswer)
-    .sort((a, b) => 0.5 - Math.random());
+  let answers = JSON.parse(localStorage.getItem('answers'))
+
+  const newAnswers = answers;
 
   localStorage.setItem("answers", JSON.stringify(answers));
   const answersJSON = JSON.parse(localStorage.getItem("answers"));
   console.log(answersJSON);
+  
+  useEffect(()=>{
+      shuffled();
+  },[]);
 
   return (
     <div className="main-div">
@@ -50,17 +54,25 @@ function QuestionPage() {
         </h1>
         <div className="line"></div>
         <div className="answers-container">
-          {answersJSON.map((element, id) => (
+          {answers[+(localStorage.getItem('slice'))].map((element, id) => (
             <div
               key={id}
-              className="four-answers"
+              className={isActive ? "four-answersCorrect" : "four-answers"}
+              style={
+                element ===
+                  newData[+localStorage.getItem("slice")].correctAnswer &&
+                isActive
+                  ? { boxShadow: "0 0 10px 3px rgb(21, 255, 0)" }
+                  : { boxShadow: "red" }
+              }
               onClick={() => {
+                setIsActive(true)
                 setTimeout(() => {
                   handleNextQuestion();
-                }, 1000)
+                  setIsActive(false);
+                }, 1000);
               }}
             >
-              {console.log(element)}
               {element}
             </div>
           ))}

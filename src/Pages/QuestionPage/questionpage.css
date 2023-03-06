@@ -44,10 +44,26 @@
     cursor: pointer;
 }
 
+.four-answersCorrect {
+    margin: 10px;
+    background-color: #1f3359;
+    border: none;
+    box-shadow: 0 0 10px 3px rgb(255, 32, 32) ;
+    height: 70px;
+    width: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+
 .four-answers:hover {
     box-shadow: 0 0 10px 3px rgb(255, 142, 49);
     transform: scale(1.03);
-    transition: 0.19s;
+    transition: 0.2s;
 }
 
 .active{
