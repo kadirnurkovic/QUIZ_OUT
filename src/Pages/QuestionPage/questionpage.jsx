@@ -34,8 +34,8 @@ function QuestionPage() {
   localStorage.setItem("slice", currentQuestion);
   localStorage.setItem("incrementer", questionCounter);
 
-  const answers = newData[+localStorage.getItem("slice")].incorrectAnswers
-    .concat(newData[+localStorage.getItem("slice")].correctAnswer)
+  const answers = newData[+(localStorage.getItem("slice"))].incorrectAnswers
+    .concat(newData[+(localStorage.getItem("slice"))].correctAnswer)
     .sort((a, b) => 0.5 - Math.random());
 
   localStorage.setItem("answers", JSON.stringify(answers));
@@ -58,7 +58,6 @@ function QuestionPage() {
                 setTimeout(() => {
                   handleNextQuestion();
                 }, 1000)
-                
               }}
             >
               {console.log(element)}
