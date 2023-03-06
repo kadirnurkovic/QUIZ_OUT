@@ -12,7 +12,8 @@ function QuestionPage() {
   const [questionCounter, setQuestionCounter] = useState(
     +localStorage.getItem("incrementer")
   );
-  const [currentQuestion, setCurrentQuestion] = useState(+(localStorage.getItem("slice"))
+  const [currentQuestion, setCurrentQuestion] = useState(
+    +localStorage.getItem("slice")
   );
   const [color, setColor] = useState({
     border: "orange 1px solid",
@@ -30,15 +31,16 @@ function QuestionPage() {
       navigate("/summary");
     }
   };
-  localStorage.setItem('slice' , currentQuestion);
+  localStorage.setItem("slice", currentQuestion);
   localStorage.setItem("incrementer", questionCounter);
 
-  const answers = newData[localStorage.getItem("slice")].incorrectAnswers
-    .concat(newData[localStorage.getItem("slice")].correctAnswer)
+  const answers = newData[+localStorage.getItem("slice")].incorrectAnswers
+    .concat(newData[+localStorage.getItem("slice")].correctAnswer)
     .sort((a, b) => 0.5 - Math.random());
-  console.log(answers);
 
-  localStorage.setItem('answers', JSON.stringify(answers))
+  localStorage.setItem("answers", JSON.stringify(answers));
+  const answersJSON = JSON.parse(localStorage.getItem("answers"));
+  console.log(answersJSON);
 
   return (
     <div className="main-div">
@@ -48,26 +50,19 @@ function QuestionPage() {
         </h1>
         <div className="line"></div>
         <div className="answers-container">
-          {JSON.parse(localStorage.getItem('answers')).map((el) => (
-            <div key={el.id} className="options">
-              {el === newData[localStorage.getItem("slice")] &&
-                answers.map((element, id) => (
-                  <div
-                    key={id}
-                    className="four-answers"
-                    onClick={() => {
-                      handleNextQuestion();
-                      // localStorage.setItem("slice", currentQuestion);
-                      
-                    }}
-                  >
-                    {console.log(
-                      localStorage.getItem("slice"),
-                      currentQuestion
-                    )}
-                    {element}
-                  </div>
-                ))}
+          {answersJSON.map((element, id) => (
+            <div
+              key={id}
+              className="four-answers"
+              onClick={() => {
+                setTimeout(() => {
+                  handleNextQuestion();
+                }, 1000)
+                
+              }}
+            >
+              {console.log(element)}
+              {element}
             </div>
           ))}
         </div>
