@@ -5,11 +5,9 @@ import "./questionpage.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import MainPage from "../MainPage/MainPage";
 import { ApiContext } from '../../context/context';
-import {answerStorage} from '../../Storage/Storage'
 
 const QuestionPage = () => {
   const { shuffled } = useContext(ApiContext);
-  const [shuffleSorted ,setShuffleSorted] = useState(shuffled)
   const [newData, setNewData] = useState(
     JSON.parse(localStorage.getItem("data"))
   );
@@ -34,17 +32,7 @@ const QuestionPage = () => {
   localStorage.setItem("slice", currentQuestion);
   localStorage.setItem("incrementer", questionCounter);
 
-  let answers = JSON.parse(localStorage.getItem('answers'))
-
-  const newAnswers = answers;
-
-  localStorage.setItem("answers", JSON.stringify(answers));
-  const answersJSON = JSON.parse(localStorage.getItem("answers"));
-  console.log(answersJSON);
-  
-  useEffect(()=>{
-      shuffled();
-  },[]);
+  let answers = JSON.parse(localStorage.getItem('answers'));
 
   return (
     <div className="main-div">

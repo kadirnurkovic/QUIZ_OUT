@@ -23,9 +23,10 @@ const MainPage = () => {
       setData(response.data)
     });
   };
+
   localStorage.setItem('data', JSON.stringify(questions))
   
-  // const sorted = JSON.parse(localStorage.getItem("answers"))
+  // Sorting the array of answers
   const shuffle = () => {
     let newArr = questions.map((el) => {
       console.log(el)

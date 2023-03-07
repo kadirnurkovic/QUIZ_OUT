@@ -19,5 +19,5 @@ export const diffData = [
 export const numberOfQuestions = [
   { value: '10', label: 10},
   { value: '20', label: 20 },
-  { valie: '30', label: 30 }
+  { value: '30', label: 30 }
 ]
