@@ -10,24 +10,43 @@ import { data, diffData, numberOfQuestions } from './Data';
 
 const MainPage = () => {
   const navigate = useNavigate();
-  const {setData} = useContext(ApiContext)
+  const { setData  } = useContext(ApiContext);
+  const [questions, setQuestions] = useState([]);
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("medium");
   const [limit, setLimit] = useState('10');
+  
+
+  // FETCHING API WITH AXIOS ARROW FUNCTION
   const getApi = () => {
     axios.get(`https://the-trivia-api.com/api/questions?categories=${category}&difficulty=${difficulty}&limit=${limit}`).then((response) => {
-      setData(response.data);
-      localStorage.setItem('data', JSON.stringify(response.data));
+      setQuestions(response.data);
     });
   };
+  localStorage.setItem('data', JSON.stringify(questions))
   
+
+  //RANDOMIZE ORDER OF ANSWERS
+  const shuffle = () => {
+    let newArr = questions.map((el) => {
+      return [...el.incorrectAnswers.concat(el.correctAnswer).sort((a,b) => 0.5 - Math.random())]
+    })
+    return newArr;
+  }
+
+  useEffect(() => {
+    localStorage.setItem('answers', JSON.stringify(shuffle()))
+  },[getApi])
+
+
 
   useEffect(() => {
     getApi();
+    shuffle();
     localStorage.setItem('slice', 0);
     localStorage.setItem('incrementer', 1);
-  }, [category, difficulty, limit]);
-  
+  }, [category, difficulty, limit
+  ]);
 
   return (
     <div className="main-page">

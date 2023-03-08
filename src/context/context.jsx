@@ -1,22 +1,13 @@
-import React , {createContext, useState, useEffect} from 'react'
-import { useNavigate } from 'react-router-dom'
+import React , {createContext} from 'react'
+import { useState } from 'react';
 const ApiContext = createContext();
 
 const ApiContextProvider = ({children}) => {
-    const navigate = useNavigate()
-    const [data, setData] = useState([]);
-    
-    const sorted = data.map((el) => {
-        let newSort = []
-        newSort = el.incorrectAnswers.concat(el.correctAnswer).sort((a,b) => 0.5 - Math.random())
-        return newSort
-    })    
+const [data, setData] = useState([])
 
-    const values = {
-        data,
-        setData,
-        sorted
-    }
+const values = {
+    data
+}
 
     return (
         <div>

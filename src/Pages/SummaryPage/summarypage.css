@@ -1,0 +1,45 @@
+.main-div{
+    height: 100vh;
+    background-color: #1f3359;
+    box-shadow: 0 0 200px 10px rgba(0, 0, 0, 0.9) inset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;                           
+}
+
+.title {
+    color: white;
+    margin: 2px;
+}
+
+.all-container{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.element-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.line {
+    height: 2px;
+    width: 100%;
+    background-image: radial-gradient(circle, rgba(2,0,36,2) 0%, rgba(9,9,121,1) 15%, rgba(0,212,255,0) 77%);
+    opacity: 0.4;
+}
+
+.line-divider {
+    height: 2px;
+    width: 100%;
+    background-color: rgba(9,9,121,1);
+    opacity: 0.6;
+}
+
+.elements {
+    margin: 0px;
+    color: white;
+}
