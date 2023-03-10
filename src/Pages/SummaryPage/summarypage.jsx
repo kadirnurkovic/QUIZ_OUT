@@ -6,11 +6,17 @@ import { useNavigate } from "react-router-dom";
 function SummaryPage() {
   const navigate = useNavigate()
   useEffect(() => {
+    window.addEventListener("beforeunload", onBackButton);
     localStorage.setItem("slice", 0);
     localStorage.setItem("incrementer", 1);
   }, []);
+
+  const onBackButton = () => {
+    navigate('/')
+  }
+
   return (
-    <div className="main-div">
+    <div className="summary-div">
       <h1 className="title">Great Job!</h1>
       <div className="line"></div>
       <div className="all-container">

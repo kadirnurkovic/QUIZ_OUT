@@ -7,11 +7,29 @@
     box-shadow: 0 0 200px 10px rgba(0,0,0, 0.9) inset;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 5px;
     align-items: center;                           
-    justify-content: center;
+    justify-content: space-between;
     font-family: 'Montserrat', sans-serif;
 }
+
+.button-input {
+    padding-bottom: 2px;
+    padding-right: 2px;
+}
+
+.back-button {
+    margin-left: 30px;
+}
+
+.button-container {
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+}
+
 .question-counter{
     color: white
 }
@@ -23,6 +41,7 @@
 }
 
 .container-container {
+    margin-bottom: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -40,9 +59,30 @@
     margin: 10px;
     background-color: #1f3359;
     border: none;
-    box-shadow: 0 0 5px black inset ;
+    box-shadow: 0 0 5px black;
     height: 70px;
     width: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.skip-button:hover {
+    box-shadow: 0 0 10px 3px rgb(255, 142, 49);
+    transform: scale(1.03);
+    transition: 0.2s;
+}
+
+.skip-button {
+    margin: 10px;
+    background-color: #1f3359;
+    border: none;
+    box-shadow: 0 0 5px black;
+    height: 40px;
+    width: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -87,7 +127,7 @@
 }
 
 .answers-container {
-    width: 600px;
+    width: 630px;
     height: 200px;
     padding-top: 20px;
     display: flex;
@@ -95,6 +135,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    gap: 15px;
 }
 .options{
     display: flex;
