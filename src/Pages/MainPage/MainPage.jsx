@@ -24,6 +24,7 @@ const MainPage = () => {
       setQuestions(response.data);
     });
   };
+
   localStorage.setItem('data', JSON.stringify(questions))
   
 
