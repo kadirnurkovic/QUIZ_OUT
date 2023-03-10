@@ -23,6 +23,7 @@ const MainPage = () => {
       setQuestions(response.data);
     });
   };
+
   localStorage.setItem('data', JSON.stringify(questions))
   
 
@@ -53,13 +54,13 @@ const MainPage = () => {
       <div className="button">
         <Button
           variant="gradient"
-          gradient={{ from: "orange", to: "red" }}
+          gradient={{ from: "orange", to: "orange" }}
           size="xl"
           onClick={() => {
             navigate(`/quiz`);
           }}
         >
-          Start button
+          Start Quiz
         </Button>
       </div>
       <div className="line"></div>

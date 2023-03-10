@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
 .main-div{
     height: 100vh;
     background-color: #1f3359;
@@ -7,6 +10,10 @@
     gap: 30px;
     align-items: center;                           
     justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+}
+.question-counter{
+    color: white
 }
 
 .question-div {
