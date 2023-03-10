@@ -1,17 +1,12 @@
 import React from "react";
-import axios from "axios";
 import { useState, useEffect, useContext } from "react";
-import "./questionpage.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MainPage from "../MainPage/MainPage";
-import { ApiContext } from '../../context/context';
+import "./questionpage.css";
 
 const QuestionPage = () => {
   
   const [timer, setTimer] = useState(60);
-  const [newData, setNewData] = useState(
-    JSON.parse(localStorage.getItem("data"))
-  );
   const [questionCounter, setQuestionCounter] = useState(
     +localStorage.getItem("incrementer")
   );
@@ -20,6 +15,8 @@ const QuestionPage = () => {
   );
   const [isActive, setIsActive] = useState(false);
   const navigate = useNavigate();
+
+  const newData = JSON.parse(localStorage.getItem("data"));
 
   const handleNextQuestion = () => {
     setIsActive(true)
