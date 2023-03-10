@@ -22,7 +22,7 @@
     padding-right: 80px;
 }
 
-.container-container {
+.main-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -40,7 +40,7 @@
     margin: 10px;
     background-color: #1f3359;
     border: none;
-    box-shadow: 0 0 5px black inset ;
+    box-shadow:  0 0 5px black;
     height: 70px;
     width: 280px;
     display: flex;
@@ -66,9 +66,8 @@
     cursor: pointer;
 }
 
-
 .four-answers:hover {
-    box-shadow: 0 0 10px 3px rgb(255, 142, 49);
+    box-shadow: 0 0 10px 3px rgb(255, 142, 49) inset;
     transform: scale(1.03);
     transition: 0.2s;
 }
