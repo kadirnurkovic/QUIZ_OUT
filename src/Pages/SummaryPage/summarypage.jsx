@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import "./summarypage.css";
+import { Button } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 
 function SummaryPage() {
+  const navigate = useNavigate()
   useEffect(() => {
     localStorage.setItem("slice", 0);
     localStorage.setItem("incrementer", 1);
@@ -26,6 +29,14 @@ function SummaryPage() {
           <h2 className="score">HARD</h2>
         </div>
       </div>
+      <Button
+          variant="gradient"
+          gradient={{ from: "orange", to: "red" }}
+          size="xl"
+          onClick={() => {
+            navigate(`/`);
+          }}
+        >Back home</Button>
     </div>
   );
 }
