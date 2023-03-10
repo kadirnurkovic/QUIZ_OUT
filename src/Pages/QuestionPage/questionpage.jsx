@@ -19,16 +19,18 @@ const QuestionPage = () => {
   const newData = JSON.parse(localStorage.getItem("data"));
 
   const handleNextQuestion = () => {
-    setIsActive(true)
-    const nextQuestionIncrementer = currentQuestion + 1;
-    setCurrentQuestion(nextQuestionIncrementer);
-    setQuestionCounter(questionCounter + 1);
-    setIsActive(false)
-    if (+localStorage.getItem("incrementer") >= newData.length) {
-      navigate("/summary");
+    setIsActive(true);
+    setTimeout(() => {
+      const nextQuestionIncrementer = currentQuestion + 1;
+      setCurrentQuestion(nextQuestionIncrementer);
       setQuestionCounter(questionCounter + 1);
-    }
-  
+      setIsActive(true);
+      if (+localStorage.getItem("incrementer") >= newData.length) {
+        navigate("/summary");
+        setQuestionCounter(questionCounter + 1);
+      }
+      setIsActive(false);
+    }, 1000);
   };
 
   console.log(isActive)
@@ -64,22 +66,16 @@ const QuestionPage = () => {
         </h1>
         <div className="line"></div>
         <div className="answers-container">
-          {answers[+(localStorage.getItem('slice'))].map((element, id) => (
+          {answers[+localStorage.getItem("slice")].map((element, id) => (
             <div
               key={id}
               className="four-answers"
               style={
-                isActive && element ===
-                  newData[+localStorage.getItem("slice")].correctAnswer ?
-                   { boxShadow: "0 0 10px 3px rgb(21, 255, 0)" } : !isActive ? {} : {boxShadow: "0 0 10px 3px rgb(189, 11, 11)"}
+                isActive && element === newData[+localStorage.getItem("slice")].correctAnswer ? {boxShadow: "0 0 10px 5px rgb(0, 255, 0"} : !isActive ? {} : {boxShadow: "0 0 10px 5px rgb(255, 50, 50)"}
               }
               onClick={() => {
                 clearTimeout();
-                setIsActive(true)
-                setTimeout(() => {
                   handleNextQuestion();
-                  setIsActive(false);
-                }, 1000);
               }}
             >
               {element}
@@ -89,6 +85,6 @@ const QuestionPage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default QuestionPage;
