@@ -7,6 +7,7 @@ import { Button } from "@mantine/core";
 
 const QuestionPage = () => {
   
+  const [isShown, setIsShown] = useState(false)
   const [timer, setTimer] = useState(60);
   const [questionCounter, setQuestionCounter] = useState(
     +localStorage.getItem("incrementer")
@@ -73,6 +74,7 @@ const QuestionPage = () => {
         >
           <span className="button-input">&#60;</span>
         </Button>
+        <div className="fadeOutText" style={!isShown ? {display: "none"} : {display: "inline-block"}}><p>TEST</p></div>
       </div>
       
       <div className="container-container">
@@ -92,6 +94,7 @@ const QuestionPage = () => {
               border: "2px solid white"} : !isActive ? {} : {boxShadow: "0 0 10px 5px rgb(255, 50, 50) inset"}
               }
               onClick={() => {
+                setIsShown(true)
                   handleNextQuestion();
               }}
             >
