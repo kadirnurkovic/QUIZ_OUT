@@ -9,10 +9,32 @@
 }
 .mantine-Select-input{
     color: white;
-    background-color: #11377e;
+    background-color: transparent;
     border: none;
-    box-shadow: 0 0 5px black inset ;
+    border-bottom: 2px solid orange;
+    border-radius: 0px;
 }
+
+.mantine-Select-input:focus{
+    border-bottom: 2px solid orangered;
+    border-radius: 0px;
+}
+
 .mantine-Select-label{
     color: white
+}
+
+.mantine-Select-dropdown {
+    background-color: #1f3359;
+}
+
+.mantine-Select-item {
+    background-color: transparent;
+    color: white;
+    border-bottom: 1px solid white;
+    border-radius: 0px;
+}
+
+.mantine-Select-item:hover {
+    background-color: orange;
 }

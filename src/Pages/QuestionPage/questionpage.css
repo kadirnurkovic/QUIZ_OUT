@@ -22,6 +22,14 @@
     margin-left: 30px;
 }
 
+.back-button:hover {
+    transform: scale(1.1);
+    transition: 0.8;
+    box-shadow: 0 0 10px orangered;
+    color: red;
+}
+
+
 .button-container {
     width: 100%;
     margin-top: 30px;
@@ -143,10 +151,35 @@
     flex-wrap: wrap;
 }
 .score-container{
-    margin-right: 25px;
-    color: orange;
+    margin-right: 120px;
+    color: white;
     font-size: 26px;
     display: flex;
     flex-direction: row;
     gap: 15px;
 }
+
+.scoreFadeContainer {
+    position: absolute;
+    right: 30px;
+}
+
+.fadeOutText {
+    animation: myAnim 1s ease 0s 1 normal backwards;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+}
+
+@keyframes myAnim {
+	0% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	100% {
+		opacity: 0;
+		transform: translateY(50px);
+	}
+}
+

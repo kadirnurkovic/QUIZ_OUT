@@ -7,8 +7,10 @@ import { ApiContext } from "../../context/context";
 import { Button } from "@mantine/core"
 
 const QuestionPage = () => {
+  const [showPoints, setShowPoints] = useState('')
+  const [isShown, setIsShown] = useState(false)
   const { counterTrueAnswer, setCounterTrueAnswer, setPoints, points } = useContext(ApiContext)
-  const [timer, setTimer] = useState(60);
+  const [timer, setTimer] = useState(90);
   const [questionCounter, setQuestionCounter] = useState(
     +localStorage.getItem("incrementer")
   );
@@ -22,6 +24,7 @@ const QuestionPage = () => {
 
   const handleNextQuestion = () => {
     setIsActive(true);
+    setIsShown(true)
     setTimeout(() => {
       const nextQuestionIncrementer = currentQuestion + 1;
       setCurrentQuestion(nextQuestionIncrementer);
@@ -32,8 +35,17 @@ const QuestionPage = () => {
         setQuestionCounter(questionCounter + 1);
       }
       setIsActive(false);
+      setIsShown(false);
     }, 1000);
   };
+
+  const pointHandler = (el) => {
+    if (el === newData[+localStorage.getItem("slice")].correctAnswer) {
+      setShowPoints('+750');
+    }else {
+      setShowPoints('-250')
+    }
+  }
 
   const scoreHandler = (el) => {
     setTimeout(() => {
@@ -46,7 +58,6 @@ const QuestionPage = () => {
     }, 1000)
   }
 
-  console.log(isActive)
   // Timer function
     setTimeout(() => {
       setTimer(timer - 1)
@@ -63,12 +74,12 @@ const QuestionPage = () => {
  
   useEffect(() => {
      if(newData.length === 10){
-      setTimer(30);
+      setTimer(60);
      }else if(newData.length === 30){
-      setTimer(90)
+      setTimer(120)
      }
   },[])
-  console.log(points)
+
   return (
     <div className="main-div">
       <div className="button-container">
@@ -78,6 +89,7 @@ const QuestionPage = () => {
           radius="xl"
           compact
           gradient={{ from: "orange", to: "orange" }}
+          onHover
           size="xl"
           onClick={() => {
             navigate(`/`);
@@ -85,7 +97,10 @@ const QuestionPage = () => {
         >
           <span className="button-input">&#60;</span>
         </Button>
-        <div className="score-container">Score : <div style={ points > 0 ? {color: 'green'} : points === 0 ? {color: 'white'} : {color: 'red'} }>{points}</div></div>
+        <div className="score-container">Score : <div className="scoreFadeContainer" style={ points > 0 ? {color: 'green'} : points === 0 ? {color: 'white'} : {color: 'red'} }>{points}
+        <div className="fadeOutText" style={!isShown ? {display: "none"} : {display: "inline-block"}}><p
+        style={showPoints === '+750' ? {color: 'green'} : {color: 'red'}}>{showPoints}</p></div></div>
+        </div>
       </div>
       
       <div className="main-container">
@@ -107,7 +122,7 @@ const QuestionPage = () => {
               onClick={() => {
                 handleNextQuestion();
                 scoreHandler(element);
-                  handleNextQuestion();
+                pointHandler(element);
               }}
             >
               {element}

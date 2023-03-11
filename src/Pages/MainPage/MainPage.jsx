@@ -11,7 +11,7 @@ import Logo from '../../imagus.png'
 
 const MainPage = () => {
   const navigate = useNavigate();
-  const { limit, setLimit, questions , setQuestions, setPoints, difficulty, setDifficulty } = useContext(ApiContext);
+  const { limit, setLimit, questions , setQuestions, setPoints, difficulty, setDifficulty, setCounterTrueAnswer } = useContext(ApiContext);
   const [category, setCategory] = useState("");  
   // FETCHING API WITH AXIOS ARROW FUNCTION
   const getApi = () => {
@@ -40,12 +40,30 @@ const MainPage = () => {
     shuffle();
     localStorage.setItem('slice', 0);
     localStorage.setItem('incrementer', 1);
+    setCounterTrueAnswer(0)
   }, [category, difficulty, limit
   ]);
 
   return (
     <div className="main-page">
       <img className="logo" src={Logo}></img>
+      <ul class="background">
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+</ul>
       <div className="line"></div>
       <div className="button">
         <Button
@@ -62,16 +80,16 @@ const MainPage = () => {
       <div className="option-section">
         <Select
           data={data}
-          label="Choose the categories"
+          label="Select category"
           placeholder="Categories"
           value={category}
           onChange={setCategory}
         />
-        <Select data={diffData} label="Choose the difficulty" placeholder="Difficulty" value={difficulty}
+        <Select data={diffData} label="Choose difficulty" placeholder="Difficulty" value={difficulty}
         onChange={setDifficulty}/>
         <Select
           data={numberOfQuestions}
-          label="Choose the number of questions"
+          label="Select number of questions"
           placeholder="Difficulty"
           onChange={setLimit}
           value={limit}
