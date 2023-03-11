@@ -17,3 +17,6 @@
     background-image: radial-gradient(circle, rgba(2,0,36,2) 0%, rgba(9,9,121,1) 15%, rgba(0,212,255,0) 77%);
     opacity: 0.4;
 }
+.logo{ 
+    height: 340px;
+}

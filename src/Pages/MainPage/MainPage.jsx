@@ -7,6 +7,7 @@ import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import { ApiContext } from "../../context/context";
 import { data, diffData, numberOfQuestions } from './Data';
+import Logo from '../../imagus.png'
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -44,6 +45,8 @@ const MainPage = () => {
 
   return (
     <div className="main-page">
+      <img className="logo" src={Logo}></img>
+      <div className="line"></div>
       <div className="button">
         <Button
           variant="gradient"
@@ -56,7 +59,6 @@ const MainPage = () => {
           Start Quiz
         </Button>
       </div>
-      <div className="line"></div>
       <div className="option-section">
         <Select
           data={data}
