@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import MainPage from "../MainPage/MainPage";
 import "./questionpage.css";
+import { Button } from "@mantine/core";
 
 const QuestionPage = () => {
   
@@ -58,6 +59,22 @@ const QuestionPage = () => {
 
   return (
     <div className="main-div">
+      <div className="button-container">
+      <Button
+      className="back-button"
+          variant="gradient"
+          radius="xl"
+          compact
+          gradient={{ from: "orange", to: "orange" }}
+          size="xl"
+          onClick={() => {
+            navigate(`/`);
+          }}
+        >
+          <span className="button-input">&#60;</span>
+        </Button>
+      </div>
+      
       <div className="container-container">
         <div style={{color: 'white'}}>{timer}</div>
         <h2 className="question-counter">{localStorage.getItem("incrementer")}/{newData.length}</h2>
@@ -71,16 +88,20 @@ const QuestionPage = () => {
               key={id}
               className="four-answers"
               style={
-                isActive && element === newData[+localStorage.getItem("slice")].correctAnswer ? {boxShadow: "0 0 10px 5px rgb(0, 255, 0"} : !isActive ? {} : {boxShadow: "0 0 10px 5px rgb(255, 50, 50)"}
+                isActive && element === newData[+localStorage.getItem("slice")].correctAnswer ? {boxShadow: "0 0 10px 5px rgb(0, 255, 0), 0 0 10px 5px rgb(0,255,0) inset",
+              border: "2px solid white"} : !isActive ? {} : {boxShadow: "0 0 10px 5px rgb(255, 50, 50) inset"}
               }
               onClick={() => {
-                clearTimeout();
                   handleNextQuestion();
               }}
             >
               {element}
             </div>
           ))}
+          <div className="skip-button"
+          onClick={() => {
+            handleNextQuestion();
+          }}>SKIP</div>
         </div>
       </div>
     </div>
