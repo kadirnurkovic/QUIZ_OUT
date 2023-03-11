@@ -3,7 +3,8 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import MainPage from "../MainPage/MainPage";
 import "./questionpage.css";
-import { ApiContext } from "../../context/context"
+import { ApiContext } from "../../context/context";
+import { Button } from "@mantine/core"
 
 const QuestionPage = () => {
   const { counterTrueAnswer, setCounterTrueAnswer, setPoints, points } = useContext(ApiContext)
@@ -70,6 +71,23 @@ const QuestionPage = () => {
   console.log(points)
   return (
     <div className="main-div">
+      <div className="button-container">
+      <Button
+      className="back-button"
+          variant="gradient"
+          radius="xl"
+          compact
+          gradient={{ from: "orange", to: "orange" }}
+          size="xl"
+          onClick={() => {
+            navigate(`/`);
+          }}
+        >
+          <span className="button-input">&#60;</span>
+        </Button>
+        <div className="score-container">Score : <div style={ points > 0 ? {color: 'green'} : points === 0 ? {color: 'white'} : {color: 'red'} }>{points}</div></div>
+      </div>
+      
       <div className="main-container">
         <div style={{color: 'white'}}>{timer}</div>
         <h2 className="question-counter">{localStorage.getItem("incrementer")}/{newData.length}</h2>
@@ -83,17 +101,22 @@ const QuestionPage = () => {
               key={id}
               className="four-answers"
               style={
-                isActive && element === newData[+localStorage.getItem("slice")].correctAnswer ? {boxShadow: "0 0 10px 5px rgb(0, 255, 0"} : !isActive ? {} : {boxShadow: "0 0 10px 5px rgb(255, 50, 50)"}
+                isActive && element === newData[+localStorage.getItem("slice")].correctAnswer ? {boxShadow: "0 0 10px 5px rgb(0, 255, 0), 0 0 10px 5px rgb(0,255,0) inset",
+              border: "2px solid white"} : !isActive ? {} : {boxShadow: "0 0 10px 5px rgb(255, 50, 50) inset"}
               }
               onClick={() => {
                 handleNextQuestion();
                 scoreHandler(element);
+                  handleNextQuestion();
               }}
             >
               {element}
             </div>
           ))}
-          <div>Your Current Score : {points}</div>
+          <div className="skip-button"
+          onClick={() => {
+            handleNextQuestion();
+          }}>SKIP</div>
         </div>
       </div>
     </div>

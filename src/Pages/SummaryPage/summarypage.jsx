@@ -1,14 +1,24 @@
 import React, { useEffect, useContext } from "react";
 import "./summarypage.css";
 import { ApiContext } from "../../context/context"
+import { Button } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
+
+
 function SummaryPage() {
+  const navigate = useNavigate();
   const { counterTrueAnswer, limit, points, difficulty } = useContext(ApiContext)
   useEffect(() => {
     localStorage.setItem("slice", 0);
     localStorage.setItem("incrementer", 1);
   }, []);
+
+  const onBackButton = () => {
+    navigate('/')
+  }
+
   return (
-    <div className="main-div">
+    <div className="summary-div">
       <h1 className="title">Great Job!</h1>
       <div className="line"></div>
       <div className="all-container">
@@ -32,6 +42,14 @@ function SummaryPage() {
           <h2 className="score">{counterTrueAnswer}</h2>
         </div>
       </div>
+      <Button
+          variant="gradient"
+          gradient={{ from: "orange", to: "red" }}
+          size="xl"
+          onClick={() => {
+            navigate(`/`);
+          }}
+        >Back home</Button>
     </div>
   );
 }
