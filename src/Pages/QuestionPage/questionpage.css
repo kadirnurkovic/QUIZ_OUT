@@ -22,12 +22,21 @@
     margin-left: 30px;
 }
 
+.back-button:hover {
+    transform: scale(1.1);
+    transition: 0.8;
+    box-shadow: 0 0 10px orangered;
+    color: red;
+}
+
+
 .button-container {
     width: 100%;
     margin-top: 30px;
     display: flex;
     flex-direction: row;
     align-items: left;
+    justify-content: space-between;
 }
 
 .question-counter{
@@ -40,12 +49,12 @@
     padding-right: 80px;
 }
 
-.container-container {
-    margin-bottom: 200px;
+.main-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 200px;
 }
 
 .line{
@@ -59,7 +68,7 @@
     margin: 10px;
     background-color: #1f3359;
     border: none;
-    box-shadow: 0 0 5px black;
+    box-shadow:  0 0 5px black;
     height: 70px;
     width: 280px;
     display: flex;
@@ -106,9 +115,8 @@
     cursor: pointer;
 }
 
-
 .four-answers:hover {
-    box-shadow: 0 0 10px 3px rgb(255, 142, 49);
+    box-shadow: 0 0 10px 3px rgb(255, 142, 49) inset;
     transform: scale(1.03);
     transition: 0.2s;
 }
@@ -142,9 +150,25 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
+.score-container{
+    margin-right: 120px;
+    color: white;
+    font-size: 26px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.scoreFadeContainer {
+    position: absolute;
+    right: 30px;
+}
 
 .fadeOutText {
     animation: myAnim 1s ease 0s 1 normal backwards;
+    position: fixed;
+    top: 30px;
+    right: 30px;
 }
 
 @keyframes myAnim {
@@ -158,3 +182,4 @@
 		transform: translateY(50px);
 	}
 }
+

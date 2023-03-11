@@ -3,12 +3,14 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import MainPage from "../MainPage/MainPage";
 import "./questionpage.css";
-import { Button } from "@mantine/core";
+import { ApiContext } from "../../context/context";
+import { Button } from "@mantine/core"
 
 const QuestionPage = () => {
-  
+  const [showPoints, setShowPoints] = useState('')
   const [isShown, setIsShown] = useState(false)
-  const [timer, setTimer] = useState(60);
+  const { counterTrueAnswer, setCounterTrueAnswer, setPoints, points } = useContext(ApiContext)
+  const [timer, setTimer] = useState(90);
   const [questionCounter, setQuestionCounter] = useState(
     +localStorage.getItem("incrementer")
   );
@@ -22,6 +24,7 @@ const QuestionPage = () => {
 
   const handleNextQuestion = () => {
     setIsActive(true);
+    setIsShown(true)
     setTimeout(() => {
       const nextQuestionIncrementer = currentQuestion + 1;
       setCurrentQuestion(nextQuestionIncrementer);
@@ -32,10 +35,29 @@ const QuestionPage = () => {
         setQuestionCounter(questionCounter + 1);
       }
       setIsActive(false);
+      setIsShown(false);
     }, 1000);
   };
 
-  console.log(isActive)
+  const pointHandler = (el) => {
+    if (el === newData[+localStorage.getItem("slice")].correctAnswer) {
+      setShowPoints('+750');
+    }else {
+      setShowPoints('-250')
+    }
+  }
+
+  const scoreHandler = (el) => {
+    setTimeout(() => {
+      if(el === newData[+localStorage.getItem("slice")].correctAnswer){
+        setPoints(points + 750);
+        setCounterTrueAnswer(counterTrueAnswer + 1);
+      }else{
+        setPoints(points - 250);
+      }
+    }, 1000)
+  }
+
   // Timer function
     setTimeout(() => {
       setTimer(timer - 1)
@@ -52,9 +74,9 @@ const QuestionPage = () => {
  
   useEffect(() => {
      if(newData.length === 10){
-      setTimer(30);
+      setTimer(60);
      }else if(newData.length === 30){
-      setTimer(90)
+      setTimer(120)
      }
   },[])
 
@@ -67,6 +89,7 @@ const QuestionPage = () => {
           radius="xl"
           compact
           gradient={{ from: "orange", to: "orange" }}
+          onHover
           size="xl"
           onClick={() => {
             navigate(`/`);
@@ -74,10 +97,13 @@ const QuestionPage = () => {
         >
           <span className="button-input">&#60;</span>
         </Button>
-        <div className="fadeOutText" style={!isShown ? {display: "none"} : {display: "inline-block"}}><p>TEST</p></div>
+        <div className="score-container">Score : <div className="scoreFadeContainer" style={ points > 0 ? {color: 'green'} : points === 0 ? {color: 'white'} : {color: 'red'} }>{points}
+        <div className="fadeOutText" style={!isShown ? {display: "none"} : {display: "inline-block"}}><p
+        style={showPoints === '+750' ? {color: 'green'} : {color: 'red'}}>{showPoints}</p></div></div>
+        </div>
       </div>
       
-      <div className="container-container">
+      <div className="main-container">
         <div style={{color: 'white'}}>{timer}</div>
         <h2 className="question-counter">{localStorage.getItem("incrementer")}/{newData.length}</h2>
         <h1 className="question-div">
@@ -94,8 +120,9 @@ const QuestionPage = () => {
               border: "2px solid white"} : !isActive ? {} : {boxShadow: "0 0 10px 5px rgb(255, 50, 50) inset"}
               }
               onClick={() => {
-                setIsShown(true)
-                  handleNextQuestion();
+                handleNextQuestion();
+                scoreHandler(element);
+                pointHandler(element);
               }}
             >
               {element}
