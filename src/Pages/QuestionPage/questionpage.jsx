@@ -3,10 +3,11 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import MainPage from "../MainPage/MainPage";
 import "./questionpage.css";
-import { Button } from "@mantine/core";
+import { ApiContext } from "../../context/context";
+import { Button } from "@mantine/core"
 
 const QuestionPage = () => {
-  
+  const { counterTrueAnswer, setCounterTrueAnswer, setPoints, points } = useContext(ApiContext)
   const [timer, setTimer] = useState(60);
   const [questionCounter, setQuestionCounter] = useState(
     +localStorage.getItem("incrementer")
@@ -34,6 +35,17 @@ const QuestionPage = () => {
     }, 1000);
   };
 
+  const scoreHandler = (el) => {
+    setTimeout(() => {
+      if(el === newData[+localStorage.getItem("slice")].correctAnswer){
+        setPoints(points + 750);
+        setCounterTrueAnswer(counterTrueAnswer + 1);
+      }else{
+        setPoints(points - 250);
+      }
+    }, 1000)
+  }
+
   console.log(isActive)
   // Timer function
     setTimeout(() => {
@@ -56,7 +68,7 @@ const QuestionPage = () => {
       setTimer(90)
      }
   },[])
-
+  console.log(points)
   return (
     <div className="main-div">
       <div className="button-container">
@@ -73,9 +85,10 @@ const QuestionPage = () => {
         >
           <span className="button-input">&#60;</span>
         </Button>
+        <div className="score-container">Score : <div style={ points > 0 ? {color: 'green'} : points === 0 ? {color: 'white'} : {color: 'red'} }>{points}</div></div>
       </div>
       
-      <div className="container-container">
+      <div className="main-container">
         <div style={{color: 'white'}}>{timer}</div>
         <h2 className="question-counter">{localStorage.getItem("incrementer")}/{newData.length}</h2>
         <h1 className="question-div">
@@ -92,6 +105,8 @@ const QuestionPage = () => {
               border: "2px solid white"} : !isActive ? {} : {boxShadow: "0 0 10px 5px rgb(255, 50, 50) inset"}
               }
               onClick={() => {
+                handleNextQuestion();
+                scoreHandler(element);
                   handleNextQuestion();
               }}
             >

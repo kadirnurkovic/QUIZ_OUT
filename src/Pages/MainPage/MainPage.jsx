@@ -7,17 +7,12 @@ import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import { ApiContext } from "../../context/context";
 import { data, diffData, numberOfQuestions } from './Data';
-import logo from '../../quizout1.png'
+import Logo from '../../imagus.png'
 
 const MainPage = () => {
   const navigate = useNavigate();
-  const { setData  } = useContext(ApiContext);
-  const [questions, setQuestions] = useState([]);
-  const [category, setCategory] = useState("");
-  const [difficulty, setDifficulty] = useState("medium");
-  const [limit, setLimit] = useState('10');
-  
-
+  const { limit, setLimit, questions , setQuestions, setPoints, difficulty, setDifficulty } = useContext(ApiContext);
+  const [category, setCategory] = useState("");  
   // FETCHING API WITH AXIOS ARROW FUNCTION
   const getApi = () => {
     axios.get(`https://the-trivia-api.com/api/questions?categories=${category}&difficulty=${difficulty}&limit=${limit}`).then((response) => {
@@ -27,7 +22,6 @@ const MainPage = () => {
 
   localStorage.setItem('data', JSON.stringify(questions))
   
-
   //RANDOMIZE ORDER OF ANSWERS
   const shuffle = () => {
     let newArr = questions.map((el) => {
@@ -40,9 +34,8 @@ const MainPage = () => {
     localStorage.setItem('answers', JSON.stringify(shuffle()))
   },[getApi])
 
-
-
   useEffect(() => {
+    setPoints(0);
     getApi();
     shuffle();
     localStorage.setItem('slice', 0);
@@ -52,7 +45,8 @@ const MainPage = () => {
 
   return (
     <div className="main-page">
-      <img src={logo} className="logo-class"></img>
+      <img className="logo" src={Logo}></img>
+      <div className="line"></div>
       <div className="button">
         <Button
           variant="gradient"
@@ -65,7 +59,6 @@ const MainPage = () => {
           Start Quiz
         </Button>
       </div>
-      <div className="line"></div>
       <div className="option-section">
         <Select
           data={data}
