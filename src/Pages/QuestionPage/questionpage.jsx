@@ -46,7 +46,6 @@ const QuestionPage = () => {
     }, 1000)
   }
 
-  console.log(isActive)
   // Timer function
     setTimeout(() => {
       setTimer(timer - 1)

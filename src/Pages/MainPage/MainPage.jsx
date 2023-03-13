@@ -1,50 +1,80 @@
 import React from "react";
 import { Button } from "@mantine/core";
 import "./MainPage.css";
-import { Select } from '@mantine/core'
+import { Select } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import { ApiContext } from "../../context/context";
-import { data, diffData, numberOfQuestions } from './Data';
-import Logo from '../../imagus.png'
+import { data, diffData, numberOfQuestions } from "./Data";
+import Logo from "../../imagus.png";
 
 const MainPage = () => {
   const navigate = useNavigate();
-  const { limit, setLimit, questions , setQuestions, setPoints, difficulty, setDifficulty } = useContext(ApiContext);
-  const [category, setCategory] = useState("");  
+  const {
+    limit,
+    setLimit,
+    questions,
+    setQuestions,
+    setPoints,
+    difficulty,
+    setDifficulty,
+  } = useContext(ApiContext);
+  const [category, setCategory] = useState("");
+
   // FETCHING API WITH AXIOS ARROW FUNCTION
+
   const getApi = () => {
-    axios.get(`https://the-trivia-api.com/api/questions?categories=${category}&difficulty=${difficulty}&limit=${limit}`).then((response) => {
-      setQuestions(response.data);
-    });
+    axios
+      .get(
+        `https://the-trivia-api.com/api/questions?categories=${category}&difficulty=${difficulty}&limit=${limit}`
+      )
+      .then((response) => {
+        setQuestions(response.data);
+      });
   };
 
-  localStorage.setItem('data', JSON.stringify(questions))
-  
+  localStorage.setItem("data", JSON.stringify(questions));
+
   //RANDOMIZE ORDER OF ANSWERS
   const shuffle = () => {
     let newArr = questions.map((el) => {
-      return [...el.incorrectAnswers.concat(el.correctAnswer).sort((a,b) => 0.5 - Math.random())]
-    })
+      return [
+        ...el.incorrectAnswers
+          .concat(el.correctAnswer)
+          .sort((a, b) => 0.5 - Math.random()),
+      ];
+    });
     return newArr;
-  }
+  };
 
   useEffect(() => {
-    localStorage.setItem('answers', JSON.stringify(shuffle()))
-  },[getApi])
+    localStorage.setItem("answers", JSON.stringify(shuffle()));
+  }, [getApi]);
 
   useEffect(() => {
     setPoints(0);
     getApi();
     shuffle();
-    localStorage.setItem('slice', 0);
-    localStorage.setItem('incrementer', 1);
-  }, [category, difficulty, limit
-  ]);
+    localStorage.setItem("slice", 0);
+    localStorage.setItem("incrementer", 1);
+  }, [category, difficulty, limit]);
 
   return (
     <div className="main-page">
+      <div className="rules-div">
+        <div className="rules">
+          ?
+          <div className="hovering">
+            Welcome to QuizOut!, these are the following rules of the game:
+            <div>
+              <ol>
+                <li>You have the 4 different answers per given question, only one of them is correct</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
       <img className="logo" src={Logo}></img>
       <div className="line"></div>
       <div className="button">
@@ -67,8 +97,13 @@ const MainPage = () => {
           value={category}
           onChange={setCategory}
         />
-        <Select data={diffData} label="Choose the difficulty" placeholder="Difficulty" value={difficulty}
-        onChange={setDifficulty}/>
+        <Select
+          data={diffData}
+          label="Choose the difficulty"
+          placeholder="Difficulty"
+          value={difficulty}
+          onChange={setDifficulty}
+        />
         <Select
           data={numberOfQuestions}
           label="Choose the number of questions"
@@ -79,6 +114,6 @@ const MainPage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default MainPage;
