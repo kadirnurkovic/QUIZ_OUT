@@ -19,6 +19,23 @@ function SummaryPage() {
 
   return (
     <div className="summary-div">
+      <ul class="background">
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+</ul>
       <h1 className="title">Great Job!</h1>
       <div className="line"></div>
       <div className="all-container">

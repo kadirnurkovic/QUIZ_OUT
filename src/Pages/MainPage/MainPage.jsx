@@ -8,6 +8,7 @@ import { useState, useEffect, useContext } from "react";
 import { ApiContext } from "../../context/context";
 import { data, diffData, numberOfQuestions } from "./Data";
 import Logo from "../../imagus.png";
+import RulesComponent from "./Rules/Rules";
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -19,9 +20,9 @@ const MainPage = () => {
     setPoints,
     difficulty,
     setDifficulty,
+    setCounterTrueAnswer,
   } = useContext(ApiContext);
   const [category, setCategory] = useState("");
-
   // FETCHING API WITH AXIOS ARROW FUNCTION
 
   const getApi = () => {
@@ -58,24 +59,30 @@ const MainPage = () => {
     shuffle();
     localStorage.setItem("slice", 0);
     localStorage.setItem("incrementer", 1);
+    setCounterTrueAnswer(0);
   }, [category, difficulty, limit]);
 
   return (
     <div className="main-page">
-      <div className="rules-div">
-        <div className="rules">
-          ?
-          <div className="hovering">
-            Welcome to QuizOut!, these are the following rules of the game:
-            <div>
-              <ol>
-                <li>You have the 4 different answers per given question, only one of them is correct</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-      </div>
+      <RulesComponent />
       <img className="logo" src={Logo}></img>
+      <ul class="background">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
       <div className="line"></div>
       <div className="button">
         <Button
@@ -92,21 +99,21 @@ const MainPage = () => {
       <div className="option-section">
         <Select
           data={data}
-          label="Choose the categories"
+          label="Select category"
           placeholder="Categories"
           value={category}
           onChange={setCategory}
         />
         <Select
           data={diffData}
-          label="Choose the difficulty"
+          label="Choose difficulty"
           placeholder="Difficulty"
           value={difficulty}
           onChange={setDifficulty}
         />
         <Select
           data={numberOfQuestions}
-          label="Choose the number of questions"
+          label="Select number of questions"
           placeholder="Difficulty"
           onChange={setLimit}
           value={limit}

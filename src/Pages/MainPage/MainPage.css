@@ -1,12 +1,22 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
 .main-page{
-    height: 100vh;
-    background-color: #1f3359;
-    box-shadow: 0 0 200px 10px rgba(0,0,0, 0.9) inset;
     display: flex;
     flex-direction: column;
     gap: 30px;
     align-items: center;                           
     justify-content: center;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    background: #1f3359;
+    box-shadow: 0 0 200px 10px rgba(0,0,0, 0.9) inset;
+    overflow: hidden;
 }
 .button{
     height: min-content;
@@ -19,6 +29,142 @@
 }
 .logo{ 
     height: 340px;
+    z-index: 1;
+}
+.option-section {
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    justify-content: space-around;
+}
+
+@keyframes animate {
+    0%{
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+    100%{
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+}
+
+.background li {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    animation: animate 16s linear infinite;
+}
+
+.background li:nth-child(0) {
+    left: 63%;
+    width: 157px;
+    height: 157px;
+    bottom: -157px;
+    animation-delay: 1s;
+}
+.background li:nth-child(1) {
+    left: 82%;
+    width: 137px;
+    height: 137px;
+    bottom: -137px;
+    animation-delay: 3s;
+}
+.background li:nth-child(2) {
+    left: 21%;
+    width: 166px;
+    height: 166px;
+    bottom: -166px;
+    animation-delay: 6s;
+}
+.background li:nth-child(3) {
+    left: 50%;
+    width: 51px;
+    height: 51px;
+    bottom: -51px;
+    animation-delay: 4s;
+}
+.background li:nth-child(4) {
+    left: 66%;
+    width: 78px;
+    height: 78px;
+    bottom: -78px;
+    animation-delay: 16s;
+}
+.background li:nth-child(5) {
+    left: 86%;
+    width: 84px;
+    height: 84px;
+    bottom: -84px;
+    animation-delay: 1s;
+}
+.background li:nth-child(6) {
+    left: 61%;
+    width: 170px;
+    height: 170px;
+    bottom: -170px;
+    animation-delay: 18s;
+}
+.background li:nth-child(7) {
+    left: 7%;
+    width: 140px;
+    height: 140px;
+    bottom: -140px;
+    animation-delay: 25s;
+}
+.background li:nth-child(8) {
+    left: 87%;
+    width: 183px;
+    height: 183px;
+    bottom: -183px;
+    animation-delay: 8s;
+}
+.background li:nth-child(9) {
+    left: 64%;
+    width: 100px;
+    height: 100px;
+    bottom: -100px;
+    animation-delay: 37s;
+}
+.background li:nth-child(10) {
+    left: 69%;
+    width: 155px;
+    height: 155px;
+    bottom: -155px;
+    animation-delay: 3s;
+}
+.background li:nth-child(11) {
+    left: 50%;
+    width: 92px;
+    height: 92px;
+    bottom: -92px;
+    animation-delay: 55s;
+}
+.background li:nth-child(12) {
+    left: 69%;
+    width: 137px;
+    height: 137px;
+    bottom: -137px;
+    animation-delay: 40s;
+}
+.background li:nth-child(13) {
+    left: 33%;
+    width: 69px;
+    height: 69px;
+    bottom: -69px;
+    animation-delay: 62s;
+}
+.background li:nth-child(14) {
+    left: 86%;
+    width: 51px;
+    height: 51px;
+    bottom: -51px;
+    animation-delay: 48s;
 }
 .rules-div{
     width: 100%;
@@ -40,6 +186,9 @@
     position: relative;
     transition: 0.3s;
     box-shadow: 0px 0px 10px white inset;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
 }
 .hovering{
     pointer-events: none;
@@ -49,20 +198,31 @@
     left: -250px;
     top: 65px;
     width: 250px;
+    font-size: 17px;
 }
 
 .rules:hover .hovering{
     display: flex;
     flex-direction: column;
-    background-color: transparent;
-    box-shadow: 0px 0px 10px white inset;
     color: orange;
     opacity: 1;
     border-radius: 15px;
-    padding: 5px;
+    padding: 15px;
     justify-content: center;
     align-items: center;
     font-size: 17px;
-    width: 250px;
+    min-width: 250px;
+    background-color: rgb(72, 70, 70);
+}
+.rule-numbers-list{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+.list {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 15px 0px 20px;
+    gap: 10px;
 }
 
