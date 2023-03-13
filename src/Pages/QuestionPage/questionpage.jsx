@@ -5,6 +5,8 @@ import MainPage from "../MainPage/MainPage";
 import "./questionpage.css";
 import { ApiContext } from "../../context/context";
 import { Button } from "@mantine/core"
+import { Progress } from "@mantine/core";
+import { Badge } from "@mantine/core";
 
 const QuestionPage = () => {
   const [showPoints, setShowPoints] = useState('')
@@ -67,6 +69,9 @@ const QuestionPage = () => {
       navigate('/summary')
     }
 
+    const progress = (timer / 60) * 100;
+
+
   localStorage.setItem("slice", currentQuestion);
   localStorage.setItem("incrementer", questionCounter);
 
@@ -104,7 +109,16 @@ const QuestionPage = () => {
       </div>
       
       <div className="main-container">
-        <div style={{color: 'white'}}>{timer}</div>
+      <div style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+        <h1 style={{color: "white"}}>{timer}</h1>
+        <Progress
+          style={{ width: "200px", height: "5px" }}
+          value={progress}
+          size={150}
+          thickness={10}
+          color={'orange'}
+        />
+      </div>
         <h2 className="question-counter">{localStorage.getItem("incrementer")}/{newData.length}</h2>
         <h1 className="question-div">
           {newData[localStorage.getItem("slice")].question}
@@ -116,8 +130,7 @@ const QuestionPage = () => {
               key={id}
               className="four-answers"
               style={
-                isActive && element === newData[+localStorage.getItem("slice")].correctAnswer ? {boxShadow: "0 0 10px 5px rgb(0, 255, 0), 0 0 10px 5px rgb(0,255,0) inset",
-              border: "2px solid white"} : !isActive ? {} : {boxShadow: "0 0 10px 5px rgb(255, 50, 50) inset"}
+                isActive && element === newData[+localStorage.getItem("slice")].correctAnswer ? {boxShadow: "0 0 10px 5px rgb(0, 255, 0), 0 0 10px 5px rgb(0,255,0) inset"} : !isActive ? {} : {boxShadow: "0 0 10px 5px rgb(255, 50, 50) inset"}
               }
               onClick={() => {
                 handleNextQuestion();
@@ -131,6 +144,7 @@ const QuestionPage = () => {
           <div className="skip-button"
           onClick={() => {
             handleNextQuestion();
+            setShowPoints("skipped")
           }}>SKIP</div>
         </div>
       </div>
