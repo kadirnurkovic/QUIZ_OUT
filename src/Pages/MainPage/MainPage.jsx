@@ -64,7 +64,6 @@ const MainPage = () => {
    <li></li>
    <li></li>
 </ul>
-      <div className="line"></div>
       <div className="button">
         <Button
           variant="gradient"
@@ -77,6 +76,7 @@ const MainPage = () => {
           Start Quiz
         </Button>
       </div>
+      <div className="line"></div>
       <div className="option-section">
         <Select
           data={data}

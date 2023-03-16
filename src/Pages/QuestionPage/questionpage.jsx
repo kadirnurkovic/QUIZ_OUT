@@ -5,12 +5,14 @@ import MainPage from "../MainPage/MainPage";
 import "./questionpage.css";
 import { ApiContext } from "../../context/context";
 import { Button } from "@mantine/core"
+import { Progress } from "@mantine/core";
+import CountdownTimer from '../../components/timer'
 
 const QuestionPage = () => {
   const [showPoints, setShowPoints] = useState('')
   const [isShown, setIsShown] = useState(false)
-  const { counterTrueAnswer, setCounterTrueAnswer, setPoints, points } = useContext(ApiContext)
-  const [timer, setTimer] = useState(90);
+  const { counterTrueAnswer, setCounterTrueAnswer, setPoints, points, limit } = useContext(ApiContext)
+  // const [timer, setTimer] = useState(+limit === 10 ? 60 : +limit === 20 ? 90 : +limit === 30 ? 120 : 60);
   const [questionCounter, setQuestionCounter] = useState(
     +localStorage.getItem("incrementer")
   );
@@ -58,27 +60,39 @@ const QuestionPage = () => {
     }, 1000)
   }
 
-  // Timer function
-    setTimeout(() => {
-      setTimer(timer - 1)
-    }, 1000);
+  // // Timer 
+  // useEffect(() => {
+  //   const time = setTimeout(() => {
+  //     if (timer > 0) {
+  //       setTimer(timer - 1);
+  //     }
+  //   }, 1000);
 
-    if(timer === 0){
-      navigate('/summary')
-    }
+  //   return () => clearTimeout(time);
+  // }, [timer]);
+
+  //   if(timer === 0){
+  //     navigate('/summary')
+  //   }
+
+  //   switch(timer) {
+  //     case 60:
+  //       setProgress((timer/60) * 100)
+  //       break;
+  //     case 90:
+  //       setProgress((timer/90) * 100)
+  //       break;
+  //     case 120:
+  //       setProgress((timer/120) * 100)
+  //   }
+    
+
 
   localStorage.setItem("slice", currentQuestion);
   localStorage.setItem("incrementer", questionCounter);
 
   let answers = JSON.parse(localStorage.getItem('answers'));
  
-  useEffect(() => {
-     if(newData.length === 10){
-      setTimer(60);
-     }else if(newData.length === 30){
-      setTimer(120)
-     }
-  },[])
 
   return (
     <div className="main-div">
@@ -102,9 +116,10 @@ const QuestionPage = () => {
         style={showPoints === '+750' ? {color: 'green'} : {color: 'red'}}>{showPoints}</p></div></div>
         </div>
       </div>
-      
+      <CountdownTimer/>
       <div className="main-container">
-        <div style={{color: 'white'}}>{timer}</div>
+      <div style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+      </div>
         <h2 className="question-counter">{localStorage.getItem("incrementer")}/{newData.length}</h2>
         <h1 className="question-div">
           {newData[localStorage.getItem("slice")].question}
@@ -116,8 +131,7 @@ const QuestionPage = () => {
               key={id}
               className="four-answers"
               style={
-                isActive && element === newData[+localStorage.getItem("slice")].correctAnswer ? {boxShadow: "0 0 10px 5px rgb(0, 255, 0), 0 0 10px 5px rgb(0,255,0) inset",
-              border: "2px solid white"} : !isActive ? {} : {boxShadow: "0 0 10px 5px rgb(255, 50, 50) inset"}
+                isActive && element === newData[+localStorage.getItem("slice")].correctAnswer ? {boxShadow: "0 0 10px 5px rgb(0, 255, 0), 0 0 10px 5px rgb(0,255,0) inset"} : !isActive ? {} : {boxShadow: "0 0 10px 5px rgb(255, 50, 50) inset"}
               }
               onClick={() => {
                 handleNextQuestion();
@@ -131,6 +145,7 @@ const QuestionPage = () => {
           <div className="skip-button"
           onClick={() => {
             handleNextQuestion();
+            setShowPoints("skipped")
           }}>SKIP</div>
         </div>
       </div>
