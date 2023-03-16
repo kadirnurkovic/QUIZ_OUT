@@ -7,10 +7,10 @@ import { ApiContext } from "../../context/context";
 import { Button } from "@mantine/core"
 
 const QuestionPage = () => {
+  const { switcher ,limit ,counterTrueAnswer, setCounterTrueAnswer, setPoints, points } = useContext(ApiContext);
   const [showPoints, setShowPoints] = useState('')
-  const [isShown, setIsShown] = useState(false)
-  const { counterTrueAnswer, setCounterTrueAnswer, setPoints, points } = useContext(ApiContext)
-  const [timer, setTimer] = useState(90);
+  const [isShown, setIsShown] = useState(false);
+  const [timer, setTimer] = useState(+limit === 10 ? 30 : +limit === 20 ? 60 : +limit === 30 ? 90 : '');
   const [questionCounter, setQuestionCounter] = useState(
     +localStorage.getItem("incrementer")
   );
@@ -21,10 +21,9 @@ const QuestionPage = () => {
   const navigate = useNavigate();
 
   const newData = JSON.parse(localStorage.getItem("data"));
-
   const handleNextQuestion = () => {
     setIsActive(true);
-    setIsShown(true)
+    setIsShown(true);
     setTimeout(() => {
       const nextQuestionIncrementer = currentQuestion + 1;
       setCurrentQuestion(nextQuestionIncrementer);
@@ -58,12 +57,8 @@ const QuestionPage = () => {
     }, 1000)
   }
 
-  // Timer function
-    setTimeout(() => {
-      setTimer(timer - 1)
-    }, 1000);
-
-    if(timer === 0){
+  // Timer navigate
+    if(timer === 0 && switcher === true){
       navigate('/summary')
     }
 
@@ -71,14 +66,19 @@ const QuestionPage = () => {
   localStorage.setItem("incrementer", questionCounter);
 
   let answers = JSON.parse(localStorage.getItem('answers'));
- 
+  const timeoutFunc = () => {
+    setTimeout(() => {
+      setTimer(timer - 1)
+      console.log(timer)
+    }, 1000);
+  }
+
+  console.log(limit)
   useEffect(() => {
-     if(newData.length === 10){
-      setTimer(60);
-     }else if(newData.length === 30){
-      setTimer(120)
-     }
-  },[])
+    if(switcher === true){
+    timeoutFunc();
+    }
+  },[timer])
 
   return (
     <div className="main-div">
@@ -103,8 +103,8 @@ const QuestionPage = () => {
         </div>
       </div>
       
-      <div className="main-container">
-        <div style={{color: 'white'}}>{timer}</div>
+      <div className="main-container">{switcher === true ?
+        <div style={{color: 'white'}}>{timer}</div> : ''}
         <h2 className="question-counter">{localStorage.getItem("incrementer")}/{newData.length}</h2>
         <h1 className="question-div">
           {newData[localStorage.getItem("slice")].question}
@@ -117,7 +117,7 @@ const QuestionPage = () => {
               className="four-answers"
               style={
                 isActive && element === newData[+localStorage.getItem("slice")].correctAnswer ? {boxShadow: "0 0 10px 5px rgb(0, 255, 0), 0 0 10px 5px rgb(0,255,0) inset",
-              border: "2px solid white"} : !isActive ? {} : {boxShadow: "0 0 10px 5px rgb(255, 50, 50) inset"}
+              } : !isActive ? {} : {boxShadow: "0 0 10px 5px rgb(255, 50, 50) inset"}
               }
               onClick={() => {
                 handleNextQuestion();

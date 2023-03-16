@@ -28,8 +28,10 @@
     opacity: 0.4;
 }
 .logo{ 
-    height: 340px;
+    height: 310px;
     z-index: 1;
+    pointer-events: none;
+
 }
 .option-section {
     display: flex;
@@ -185,7 +187,7 @@
     margin-right: 15px;
     position: relative;
     transition: 0.3s;
-    box-shadow: 0px 0px 10px white inset;
+    background-color: rgb(72, 70, 70);
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     cursor: pointer;
@@ -199,6 +201,7 @@
     top: 65px;
     width: 250px;
     font-size: 17px;
+    z-index: 1;
 }
 
 .rules:hover .hovering{
@@ -213,6 +216,7 @@
     font-size: 17px;
     min-width: 250px;
     background-color: rgb(72, 70, 70);
+    z-index: 2;
 }
 .rule-numbers-list{
     font-family: 'Montserrat', sans-serif;
@@ -224,5 +228,11 @@
     flex-direction: column;
     padding: 0px 15px 0px 20px;
     gap: 10px;
+}
+.mantine-Switch-label{
+    color: white;
+}
+.switch{
+    margin: 15px;
 }
 

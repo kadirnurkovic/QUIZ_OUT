@@ -1,4 +1,4 @@
-import "../MainPage.css"
+import "../MainPage.css";
 
 const RulesComponent = () => {
   return (
@@ -15,11 +15,15 @@ const RulesComponent = () => {
               </li>
               <li>
                 The time to answer your questions is limited, it depends on
-                number of questions that youre answering
+                number of questions that you're answering
+              </li>
+              <li>
+                Your personal score will rise as you're giving the correct
+                answers, otherwise it will go down if the answers are incorrect
               </li>
               <li>
                 You have the option to skip the question if you cant or you're
-                unwilling to give answer
+                unwilling to give answer, skipping questions will not affect your score
               </li>
             </ol>
           </div>

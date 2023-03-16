@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@mantine/core";
 import "./MainPage.css";
-import { Select } from "@mantine/core";
+import { Select, Switch } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
@@ -13,6 +13,8 @@ import RulesComponent from "./Rules/Rules";
 const MainPage = () => {
   const navigate = useNavigate();
   const {
+    switcher,
+    setSwitcher,
     limit,
     setLimit,
     questions,
@@ -49,11 +51,20 @@ const MainPage = () => {
     return newArr;
   };
 
+  const handleSwitch = () => {
+    if(switcher === false){
+      setSwitcher(true);
+    }else{
+       setSwitcher(false);
+    }
+  }
+
   useEffect(() => {
     localStorage.setItem("answers", JSON.stringify(shuffle()));
   }, [getApi]);
 
   useEffect(() => {
+    setSwitcher(false);
     setPoints(0);
     getApi();
     shuffle();
@@ -61,6 +72,8 @@ const MainPage = () => {
     localStorage.setItem("incrementer", 1);
     setCounterTrueAnswer(0);
   }, [category, difficulty, limit]);
+
+  console.log(switcher)
 
   return (
     <div className="main-page">
@@ -95,6 +108,15 @@ const MainPage = () => {
         >
           Start Quiz
         </Button>
+      <div className="switch">
+        <Switch
+          label="Timer"
+          placeholder="On/Off"
+          color= 'orange'
+          value={switcher}
+          onChange={handleSwitch}
+          />
+      </div>
       </div>
       <div className="option-section">
         <Select
