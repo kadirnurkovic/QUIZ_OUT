@@ -1,7 +1,10 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
 .main-page{
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 15px;
     align-items: center;                           
     justify-content: center;
     position: fixed;
@@ -17,6 +20,7 @@
 }
 .button{
     height: min-content;
+    margin-top: 15px;
 }
 .line{
     height: 2px;
@@ -25,8 +29,10 @@
     opacity: 0.4;
 }
 .logo{ 
-    height: 340px;
+    height: 310px;
     z-index: 1;
+    pointer-events: none;
+
 }
 .option-section {
     display: flex;
@@ -163,3 +169,79 @@
     bottom: -51px;
     animation-delay: 48s;
 }
+.rules-div{
+    width: 100%;
+    height: 25px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.rules{
+    color: white;
+    margin-top: 15px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    position: relative;
+    transition: 0.3s;
+    background-color: rgb(72, 70, 70);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+}
+.hovering{
+    pointer-events: none;
+    opacity: 0;
+    transition: 0.3s;
+    position: absolute;
+    left: -250px;
+    top: 65px;
+    width: 250px;
+    font-size: 17px;
+    z-index: 1;
+}
+
+.rules:hover .hovering{
+    display: flex;
+    flex-direction: column;
+    color: orange;
+    opacity: 1;
+    border-radius: 15px;
+    padding: 15px;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    min-width: 250px;
+    background-color: rgb(72, 70, 70);
+    z-index: 2;
+}
+.rule-numbers-list{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+.list {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 15px 0px 20px;
+    gap: 10px;
+}
+.mantine-Switch-label{
+    color: white;
+}
+.switch{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 15px;
+}
+.label{
+    font-family: 'Montserrat', sans-serif;
+    color: #F4F4F4;
+}
+

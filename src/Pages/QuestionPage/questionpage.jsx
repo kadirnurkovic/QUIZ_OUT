@@ -9,10 +9,10 @@ import { Progress } from "@mantine/core";
 import CountdownTimer from '../../components/timer'
 
 const QuestionPage = () => {
+  const { switcher ,limit ,counterTrueAnswer, setCounterTrueAnswer, setPoints, points } = useContext(ApiContext);
   const [showPoints, setShowPoints] = useState('')
-  const [isShown, setIsShown] = useState(false)
-  const { counterTrueAnswer, setCounterTrueAnswer, setPoints, points, limit } = useContext(ApiContext)
-  // const [timer, setTimer] = useState(+limit === 10 ? 60 : +limit === 20 ? 90 : +limit === 30 ? 120 : 60);
+  const [isShown, setIsShown] = useState(false);
+  const [timer, setTimer] = useState(+limit === 10 ? 30 : +limit === 20 ? 60 : +limit === 30 ? 90 : '');
   const [questionCounter, setQuestionCounter] = useState(
     +localStorage.getItem("incrementer")
   );
@@ -23,10 +23,9 @@ const QuestionPage = () => {
   const navigate = useNavigate();
 
   const newData = JSON.parse(localStorage.getItem("data"));
-
   const handleNextQuestion = () => {
     setIsActive(true);
-    setIsShown(true)
+    setIsShown(true);
     setTimeout(() => {
       const nextQuestionIncrementer = currentQuestion + 1;
       setCurrentQuestion(nextQuestionIncrementer);
@@ -60,39 +59,28 @@ const QuestionPage = () => {
     }, 1000)
   }
 
-  // // Timer 
-  // useEffect(() => {
-  //   const time = setTimeout(() => {
-  //     if (timer > 0) {
-  //       setTimer(timer - 1);
-  //     }
-  //   }, 1000);
-
-  //   return () => clearTimeout(time);
-  // }, [timer]);
-
-  //   if(timer === 0){
-  //     navigate('/summary')
-  //   }
-
-  //   switch(timer) {
-  //     case 60:
-  //       setProgress((timer/60) * 100)
-  //       break;
-  //     case 90:
-  //       setProgress((timer/90) * 100)
-  //       break;
-  //     case 120:
-  //       setProgress((timer/120) * 100)
-  //   }
-    
-
+  // Timer navigate
+    if(timer === 0 && switcher === true){
+      navigate('/summary')
+    }
 
   localStorage.setItem("slice", currentQuestion);
   localStorage.setItem("incrementer", questionCounter);
 
   let answers = JSON.parse(localStorage.getItem('answers'));
- 
+  const timeoutFunc = () => {
+    setTimeout(() => {
+      setTimer(timer - 1)
+      console.log(timer)
+    }, 1000);
+  }
+
+  console.log(limit)
+  useEffect(() => {
+    if(switcher === true){
+    timeoutFunc();
+    }
+  },[timer])
 
   return (
     <div className="main-div">
@@ -115,8 +103,7 @@ const QuestionPage = () => {
         <div className="fadeOutText" style={!isShown ? {display: "none"} : {display: "inline-block"}}><p
         style={showPoints === '+750' ? {color: 'green'} : {color: 'red'}}>{showPoints}</p></div></div>
         </div>
-      </div>
-      <CountdownTimer/>
+      </div>{switcher === true ? <CountdownTimer/> : ''}
       <div className="main-container">
       <div style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
       </div>
@@ -131,7 +118,8 @@ const QuestionPage = () => {
               key={id}
               className="four-answers"
               style={
-                isActive && element === newData[+localStorage.getItem("slice")].correctAnswer ? {boxShadow: "0 0 10px 5px rgb(0, 255, 0), 0 0 10px 5px rgb(0,255,0) inset"} : !isActive ? {} : {boxShadow: "0 0 10px 5px rgb(255, 50, 50) inset"}
+                isActive && element === newData[+localStorage.getItem("slice")].correctAnswer ? {boxShadow: "0 0 10px 5px rgb(0, 255, 0), 0 0 10px 5px rgb(0,255,0) inset",
+              } : !isActive ? {} : {boxShadow: "0 0 10px 5px rgb(255, 50, 50) inset"}
               }
               onClick={() => {
                 handleNextQuestion();
