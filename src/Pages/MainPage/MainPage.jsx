@@ -118,6 +118,7 @@ const MainPage = () => {
           />
       </div>
       </div>
+      <div className="line"></div>
       <div className="option-section">
         <Select
           data={data}

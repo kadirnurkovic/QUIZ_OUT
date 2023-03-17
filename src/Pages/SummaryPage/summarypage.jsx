@@ -2,11 +2,13 @@ import React, { useEffect, useContext } from "react";
 import "./summarypage.css";
 import { ApiContext } from "../../context/context"
 import { Button } from "@mantine/core";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 
 
 function SummaryPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { counterTrueAnswer, limit, points, difficulty } = useContext(ApiContext)
   useEffect(() => {
     localStorage.setItem("slice", 0);
@@ -16,6 +18,20 @@ function SummaryPage() {
   const onBackButton = () => {
     navigate('/')
   }
+
+  useEffect(() => {
+    const handleBackNavigation = () => {
+      if (location.state?.from === 'summary') {
+        navigate('/');
+      }
+    };
+
+    window.addEventListener('popstate', handleBackNavigation);
+
+    return () => {
+      window.removeEventListener('popstate', handleBackNavigation);
+    };
+  }, [location.state, navigate]);
 
   return (
     <div className="summary-div">

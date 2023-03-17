@@ -5,6 +5,8 @@ import MainPage from "../MainPage/MainPage";
 import "./questionpage.css";
 import { ApiContext } from "../../context/context";
 import { Button } from "@mantine/core"
+import { Progress } from "@mantine/core";
+import CountdownTimer from '../../components/timer'
 
 const QuestionPage = () => {
   const { switcher ,limit ,counterTrueAnswer, setCounterTrueAnswer, setPoints, points } = useContext(ApiContext);
@@ -102,9 +104,10 @@ const QuestionPage = () => {
         style={showPoints === '+750' ? {color: 'green'} : {color: 'red'}}>{showPoints}</p></div></div>
         </div>
       </div>
-      
-      <div className="main-container">{switcher === true ?
-        <div style={{color: 'white'}}>{timer}</div> : ''}
+      <CountdownTimer/>
+      <div className="main-container">
+      <div style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+      </div>
         <h2 className="question-counter">{localStorage.getItem("incrementer")}/{newData.length}</h2>
         <h1 className="question-div">
           {newData[localStorage.getItem("slice")].question}
@@ -131,6 +134,7 @@ const QuestionPage = () => {
           <div className="skip-button"
           onClick={() => {
             handleNextQuestion();
+            setShowPoints("skipped")
           }}>SKIP</div>
         </div>
       </div>
