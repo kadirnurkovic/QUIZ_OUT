@@ -110,15 +110,14 @@ const MainPage = () => {
         </Button>
       <div className="switch">
         <Switch
-          label="Timer"
           placeholder="On/Off"
           color= 'orange'
           value={switcher}
           onChange={handleSwitch}
           />
+          <span className="label">Timer</span>
       </div>
       </div>
-      <div className="line"></div>
       <div className="option-section">
         <Select
           data={data}
