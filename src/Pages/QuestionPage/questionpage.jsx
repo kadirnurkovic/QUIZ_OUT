@@ -60,7 +60,7 @@ const QuestionPage = () => {
   }
 
   // Timer navigate
-    if(timer === 0 && switcher === true){
+    if(timer === 0 && switcher){
       navigate('/summary')
     }
 
@@ -77,7 +77,7 @@ const QuestionPage = () => {
 
   console.log(limit)
   useEffect(() => {
-    if(switcher === true){
+    if(switcher){
     timeoutFunc();
     }
   },[timer])
@@ -103,7 +103,7 @@ const QuestionPage = () => {
         <div className="fadeOutText" style={!isShown ? {display: "none"} : {display: "inline-block"}}><p
         style={showPoints === '+750' ? {color: 'green'} : {color: 'red'}}>{showPoints}</p></div></div>
         </div>
-      </div>{switcher === true ? <CountdownTimer/> : ''}
+      </div>{switcher ? <CountdownTimer/> : ''}
       <div className="main-container">
       <div style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
       </div>
