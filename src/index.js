@@ -11,6 +11,7 @@ import { ApiContextProvider } from"./context/context"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  <React.StrictMode>
     <Router>
       <ApiContextProvider>
         <Routes>
@@ -20,6 +21,7 @@ root.render(
         </Routes>
       </ApiContextProvider>
     </Router>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
